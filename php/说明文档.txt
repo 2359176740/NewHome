@@ -5,4 +5,4 @@
 	例如:
 	$url = "https://jia.baidu.com/decoration/home";
 	只需要更换引号中的地址即可
-注意:php文件名称必须要和项目src/config/uri.js 中封装的请求名称要一致
+注意:php文件名称必须要和项目src/config/uri.js   中封装的请求名称要一致
