@@ -1,0 +1,8 @@
+--这两个文件为示例请求放到www文件夹下,用来获取数据
+
+使用方法:
+	将getAirPortlnfo.php文件中的请求地址更换成项目接口请求地址
+	例如:
+	$url = "https://jia.baidu.com/decoration/home";
+	只需要更换引号中的地址即可
+注意:php文件名称必须要和项目src/config/uri.js 中封装的请求名称要一致
