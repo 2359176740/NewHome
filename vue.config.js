@@ -8,7 +8,7 @@ module.exports = {
         overlay: false,
         // vue项目代理请求
         proxy: {
-            
+
             "/v1": {
                 // 把相对地址中的域名 映射到 目标地址中
                 // localhost:3000 => https://api.iynn.cn/film/api/v1/

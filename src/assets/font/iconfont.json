@@ -1,0 +1,30 @@
+{
+  "id": "2291634",
+  "name": "home",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "593506",
+      "name": "右",
+      "font_class": "weibiaoti34",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "3764367",
+      "name": "小房子",
+      "font_class": "weibiaoti-",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "5831255",
+      "name": "左",
+      "font_class": "zuo",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    }
+  ]
+}
