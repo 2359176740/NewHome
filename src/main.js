@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 //引入axios
 import axios from "@/api/http";
-
 Vue.prototype.$http = axios;
 
 Vue.config.productionTip = false
