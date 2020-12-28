@@ -97,7 +97,8 @@ li button {
   height: 30px;
   line-height: 14px;
   width: 70px;
-  margin: 46px 0 0 80px;
+  margin-top: 52px;
+  margin-left: 26px;
 }
 h3 {
   width: 100%;

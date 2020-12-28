@@ -1,24 +1,34 @@
 <template>
   <div>
-    <div>
+    <div class="qwer">
+      <img
+        src="https://wx4.sinaimg.cn/mw690/9d9cfdb9ly1glnkzr8fp3j21gi2lbb29.jpg"
+        alt=""
+      />
+    </div>
+    <div class="sdf">
       <van-form @submit="onSubmit">
-        <van-field
-          v-model="mobile"
-          name="mobile"
-          label="手机号"
-          placeholder="手机号"
-          :rules="[{ pattern, message: '请填写正确的手机号' }]"
-        />
-        <van-field
-          v-model="password"
-          type="password"
-          name="password"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
         <div style="margin: 16px">
-          <van-button square block type="info" native-type="submit"
+          <van-field
+            v-model="mobile"
+            name="mobile"
+            label="手机号"
+            placeholder="手机号"
+            :rules="[{ pattern, message: '请填写正确的手机号' }]"
+          />
+        </div>
+        <div style="margin: 16px">
+          <van-field
+            v-model="password"
+            type="password"
+            name="password"
+            label="密码"
+            placeholder="密码"
+            :rules="[{ required: true, message: '请填写密码' }]"
+          />
+        </div>
+        <div style="margin: 16px">
+          <van-button block round type="info" native-type="submit"
             >提交</van-button
           >
         </div>
@@ -60,3 +70,16 @@ export default {
   created() {},
 };
 </script>
+<style lang="scss" scoped>
+.qwer img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.sdf {
+  position: absolute;
+  width: 80%;
+  margin: 340px 0 0 40px;
+}
+</style>

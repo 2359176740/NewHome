@@ -22,9 +22,9 @@ router.beforeEach((to, from, next) => {
   let arr = [
     "/attention",
     "/collect",
-    "/enter",
     "/information",
-    "/feedback"
+    "/feedback",
+    "/orderForm"
     //...
   ];
   if (arr.includes(to.path) && !localStorage.getItem("jwt")) {
