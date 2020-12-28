@@ -9,6 +9,11 @@ Vue.prototype.$http = axios;
 
 Vue.config.productionTip = false
 
+let jwt = localStorage.getItem("jwt");
+if (jwt) {
+  store.commit("setJwt", jwt)
+}
+
 new Vue({
   router,
   store,
