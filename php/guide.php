@@ -8,7 +8,6 @@ include "./common.php";
 // 获取代理的参数信息
 $params = "";
 $lastpath = $_REQUEST["lastpath"];
-// echo $lastpath;
 unset($_REQUEST['lastpath']);
 if(count($_REQUEST) > 1){
     foreach ($_REQUEST as $key => $value) {

@@ -1,5 +1,6 @@
-import strategy from '@/views/strategy/Strategy'
+import strategyIndex from "@/views/strategy/Strategy";
+
 export default {
-    path:'/strategy/index',
-    component:strategy
-}
+  path: "/strategy/index",
+  component: strategyIndex,
+};
