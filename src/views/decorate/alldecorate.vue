@@ -94,7 +94,7 @@ export default {
     search(value) {},
     getData(path) {
       this.$http.get(uri.getAirPortInfo + path).then((ret) => {
-        console.log(ret.data);
+
         this.showFilter = ret.data.showFilter;
         this.option2 = this.showFilter.result[1].options[0].options;
         this.option3 = this.showFilter.result[2].options;

@@ -170,8 +170,8 @@ export default {
 
   created() {
     //头部内容显示
-    this.$store.commit('setHeadName','攻略');
-    this.$store.commit('setIsGoBackHome',true);
+    this.$store.commit("setHeadName", "攻略");
+    this.$store.commit("setIsGoBackHome", true);
     // 获取屏幕高度
     this.screenHeight =
       window.innerHeight ||
@@ -194,36 +194,35 @@ export default {
         // 放在这里就是数据请求成功之后的那一次DOM更新之后调用
         this.$nextTick(() => {
           this.wratop = this.$refs.datawra.offsetTop;
+          // 添加滑动监听事件
+          window.addEventListener("scroll", () => {
+            let leftHeight = this.$refs.leftlist.offsetHeight;
+            let rightHeight = this.$refs.rightlist.offsetHeight;
+            let minHeight = Math.min(leftHeight, rightHeight);
+            if (
+              document.documentElement.scrollTop + this.screenHeight + 10 >=
+              minHeight + this.wratop
+            ) {
+              if (!this.isfinish) return;
+              this.isfinish = false;
+              this.isLoading = true;
+              //  异步获取数据，注意子组件生命周期顺序
+              this.$http
+                .get(
+                  uri.getAirPortInfo +
+                    `?lastpath=${this.nextPageUrl.path}&&${this.nextPageUrl.params}&&${this.str}`
+                )
+                .then((ret) => {
+                  console.log(ret);
+                  this.showMixrecList = ret.data.showMixrec.list;
+                  this.nextPageUrl = ret.data.showMixrec.nextPageUrl;
+                  this.isLoading = false;
+                  this.isfinish = true;
+                });
+            }
+          });
         });
       });
-    // 添加滑动监听事件
-    window.addEventListener("scroll", () => {
-      let leftHeight = this.$refs.leftlist.offsetHeight;
-      let rightHeight = this.$refs.rightlist.offsetHeight;
-      let minHeight = Math.min(leftHeight, rightHeight);
-      if (
-        document.documentElement.scrollTop + this.screenHeight + 10 >=
-        minHeight + this.wratop
-      ) {
-        if (!this.isfinish) return;
-        console.log(123);
-        this.isfinish = false;
-        this.isLoading = true;
-        //  异步获取数据，注意子组件生命周期顺序
-        this.$http
-          .get(
-            uri.getAirPortInfo +
-              `?lastpath=${this.nextPageUrl.path}&&${this.nextPageUrl.params}&&${this.str}`
-          )
-          .then((ret) => {
-            console.log(ret);
-            this.showMixrecList = ret.data.showMixrec.list;
-            this.nextPageUrl = ret.data.showMixrec.nextPageUrl;
-            this.isLoading = false;
-            this.isfinish = true;
-          });
-      }
-    });
   },
   mounted() {},
   methods: {

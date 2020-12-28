@@ -103,7 +103,7 @@ export default {
               "?lastpath=decoration/designerlistpage&&uuid=1780891290e775ac169f64d9cababbc19abda949a7&referer=designerlistpage%3F&referlid=1780891290440d2c58a05efec37c6a4fde00f86a6b&province_name=%E5%8C%97%E4%BA%AC&city_name=%E5%8C%97%E4%BA%AC&from_service=1&selectArea=131&cbdid=NTJERjRFREUxMjgxNDU5OEU3NUQ1MkVDQTJCMDA2RDk&jpath=DZ4_DL5&pn=6&rn=6&searchParam=designer_pn%3A6&nid=&jzts=1608987018053_0.23096206428172628&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5"
           )
           .then((ret) => {
-            console.log(ret.data);
+
             this.showDesignerlist = this.showDesignerlist.concat(
               ret.data.showDesignerlistpage.list
             );

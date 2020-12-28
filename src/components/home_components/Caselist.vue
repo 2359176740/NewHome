@@ -211,7 +211,6 @@ export default {
         )
         .then((ret) => {
           this.list = ret.data.showCaselist.list;
-          console.log(ret.data);
           this.isLoadingTop = false;
         });
     },

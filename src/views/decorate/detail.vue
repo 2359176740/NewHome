@@ -138,7 +138,6 @@ export default {
           "?lastpath=decoration/shopdetail&&uuid=1780891290ba340a57ec33d352ce0a10499197f981&referer=shop%2Flist%2Ffullset%3F&referlid=17808912900de1203ba981ca0df5608af0e0d378c7&province_name=%E5%8C%97%E4%BA%AC&city_name=%E5%8C%97%E4%BA%AC&from_service=1&selectArea=131&cbdid=NTJERjRFREUxMjgxNDU5OEU3NUQ1MkVDQTJCMDA2RDk&jpath=DZ1_M1&nid=81159000794379_sp_midplat&rank=0&refer_pagenum=0&imageType=case%2CimageGallery%2Ccase&imageNids=88403092792876_cs_midplat%2C85200084272610_ig_midplat%2C89195423700272_cs_midplat&path=%2Fdecoration%2Fshopdetail&split=1&jzts=1608967270114_0.9150857234187475&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5"
       )
       .then((ret) => {
-        console.log(ret);
         this.bannerList = ret.data.showShopdetail.bannerList.list;
         this.showShopdetail = ret.data.showShopdetail;
         this.showMomentlist = ret.data.showMomentlist.list;
