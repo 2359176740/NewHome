@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <DecorateHeader></DecorateHeader>
     <div class="header">
       <div
         v-for="(item, index) in showDiamondzone.result"
@@ -97,7 +96,6 @@
 <script>
 import Vue from "vue";
 import uri from "@/config/uri";
-import DecorateHeader from "@/components/Navigation/decorateHeader";
 import { DropdownMenu, DropdownItem, Button } from "vant";
 
 Vue.use(DropdownMenu);
@@ -121,9 +119,6 @@ export default {
       ],
     };
   },
-  components: {
-    DecorateHeader,
-  },
   methods: {
     search(value) {},
     getData(id) {
@@ -146,6 +141,10 @@ export default {
   },
   created() {
     this.$store.commit("setFooterActive", 2);
+    //头部内容显示
+    this.$store.commit('setHeadName','装修');
+     this.$store.commit("setIsGoBackHome", true);
+    this.$store.commit("setIsGo", true);
     this.getData(
       "?lastpath=decoration/shop/list&&jzts=1608861881051_0.041307916006790846&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=pc"
     );
@@ -162,7 +161,6 @@ export default {
               "?lastpath=decoration/shop/list&&uuid=1780891290fd944dc56f342de341206cf520e52919&referer=shop%2Flist%3F&referlid=1780891290f4eea0b22fb12ee678742d1fdff198b7&province_name=%E5%8C%97%E4%BA%AC&city_name=%E5%8C%97%E4%BA%AC&from_service=1&selectArea=131&cbdid=NTJERjRFREUxMjgxNDU5OEU3NUQ1MkVDQTJCMDA2RDk&pn=6&rn=6&pagenum=1&jzts=1608963672799_0.07600490413058991&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5"
           )
           .then((ret) => {
-            console.log(ret.data);
             this.showShoplist = this.showShoplist.concat(
               ret.data.showShoplist.list
             );
@@ -174,7 +172,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
-  padding-top: 50px;
   display: flex;
   justify-content: space-around;
   width: 100%;

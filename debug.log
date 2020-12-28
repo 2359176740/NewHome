@@ -1,11 +1,12 @@
-[1226/142641.771:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ÕÒ²»µ½Ö¸¶¨µÄÂ·¾¶¡£ (0x3)
-[1226/153351.697:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ÕÒ²»µ½Ö¸¶¨µÄÂ·¾¶¡£ (0x3)
-[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ÎÞ·¨·ÃÎÊ} ¹ý³ÌÒÑÇëÇó·ÃÎÊÒ»¶ÔÏó£¬µ«Î´¸ø·ÃÎÊÈ¨ÏÞ¡£ (0xc0000022)
+[1226/142641.771:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ï¿½Ò²ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ (0x3)
+[1226/153351.697:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ï¿½Ò²ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ (0x3)
+[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ó£¬µï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Þ¡ï¿½ (0xc0000022)
 [1226/213142.894:ERROR:exception_snapshot_win.cc(99)] thread ID 1328 not found in process
-[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ÎÞ·¨·ÃÎÊ} ¹ý³ÌÒÑÇëÇó·ÃÎÊÒ»¶ÔÏó£¬µ«Î´¸ø·ÃÎÊÈ¨ÏÞ¡£ (0xc0000022)
-[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ÎÞ·¨·ÃÎÊ} ¹ý³ÌÒÑÇëÇó·ÃÎÊÒ»¶ÔÏó£¬µ«Î´¸ø·ÃÎÊÈ¨ÏÞ¡£ (0xc0000022)
-[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ÎÞ·¨·ÃÎÊ} ¹ý³ÌÒÑÇëÇó·ÃÎÊÒ»¶ÔÏó£¬µ«Î´¸ø·ÃÎÊÈ¨ÏÞ¡£ (0xc0000022)
+[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ó£¬µï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Þ¡ï¿½ (0xc0000022)
+[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ó£¬µï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Þ¡ï¿½ (0xc0000022)
+[1226/213142.848:ERROR:process_reader_win.cc(123)] NtOpenThread: {ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ó£¬µï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½Þ¡ï¿½ (0xc0000022)
 [1226/213142.900:ERROR:exception_snapshot_win.cc(99)] thread ID 17840 not found in process
 [1226/213142.900:ERROR:exception_snapshot_win.cc(99)] thread ID 524 not found in process
 [1226/213142.900:ERROR:exception_snapshot_win.cc(99)] thread ID 31636 not found in process
-[1227/182932.239:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ÕÒ²»µ½Ö¸¶¨µÄÂ·¾¶¡£ (0x3)
+[1227/182932.239:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ï¿½Ò²ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ (0x3)
+[1227/133102.909:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ï¿½Ò²ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ (0x3)

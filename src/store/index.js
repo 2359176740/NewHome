@@ -29,6 +29,9 @@ export default new Vuex.Store({
     //装修中的
     path: "",
     name: "",
+
+    //个人中心令牌
+    jwt: "",
   },
   mutations: {
     setHomeBodyArr(state, val) {
@@ -65,6 +68,11 @@ export default new Vuex.Store({
     },
     setname(state, name) {
       state.name = name;
+    },
+
+    setJwt(state, jwt) {
+      state.jwt = jwt;
+      localStorage.setItem("jwt", jwt);
     },
   },
   actions: {},

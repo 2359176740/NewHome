@@ -8,10 +8,10 @@
           @click="go()"
           v-show="$store.state.is_go"
         ></div>
-          <div
-            class="search iconfont icon-sousuo"
-            v-show="$store.state.is_search"
-          ></div>
+        <div
+          class="search iconfont icon-sousuo"
+          v-show="$store.state.is_search"
+        ></div>
         <div
           class="goBackHome iconfont icon-jia"
           @click="goBackHome()"
@@ -24,6 +24,11 @@
 <script>
 import "@/assets/icon/iconfont.css";
 export default {
+  data() {
+    return {
+      //  showSearchArr:['/home',""],
+    };
+  },
   methods: {
     go() {
       this.$router.go(-1);
@@ -45,14 +50,52 @@ export default {
       document.addEventListener("scroll", this.showSearch);
     }
   },
-  beforeDestroy(){
+  watch: {
+    $route: {
+      handler(val) {
+        switch (val.fullPath) {
+          case "/home":
+            document.addEventListener("scroll", this.showSearch);
+            this.$store.commit("setIsGoBackHome", false);
+            this.$store.commit("setIsGo", false);
+            break;
+          case "/pages/caselist/index":
+            document.removeEventListener("scroll", this.showSearch);
+            this.$store.commit("setSearch", true);
+            this.$store.commit("setIsGoBackHome", true);
+            this.$store.commit("setIsGo", true);
+            break;
+          case "/strategy/index":
+            this.$store.commit("setIsGo", false);
+            document.removeEventListener("scroll", this.showSearch);
+            this.$store.commit("setSearch", false);
+            this.$store.commit("setIsGoBackHome", true);
+            break;
+          case "/center":
+            this.$store.commit("setIsGo", false);
+            document.removeEventListener("scroll", this.showSearch);
+            this.$store.commit("setSearch", false);
+            this.$store.commit("setIsGo", true);
+            this.$store.commit("setIsGoBackHome", true);
+            break;
+          default:
+            document.removeEventListener("scroll", this.showSearch);
+            this.$store.commit("setSearch", false);
+            this.$store.commit("setIsGo", true);
+            this.$store.commit("setIsGoBackHome", true);
+        }
+      },
+      deep: true,
+    },
+  },
+  beforeDestroy() {
     /*
       组件切换销毁时组件本神身已经绑定的事件比如scroll,还有ajax请求并不会随着组件的注销而被销毁
       需要在组件beforeDestory中进行销毁
       每个组件必须在自己的当前生命周期中销毁自己创建的事件
       在相同组件不同生命周期中不能销毁其他生命周期创建的事件
     */
-    document.removeEventListener('scroll',this.showSearch)
+    // document.removeEventListener('scroll',this.showSearch)
   },
 };
 </script>

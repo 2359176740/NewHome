@@ -18,7 +18,6 @@ export default {
     HomeBody,
   },
   created() {
-    this.$store.commit("setIsGoBackHome", false);
     this.$store.commit("setHeadName", "装馨家");
   },
   // beforeDestroy() {

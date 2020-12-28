@@ -8,7 +8,7 @@
   >
     <van-tabbar-item
       ><van-icon
-        class="iconfont icon-home"
+        class="iconfont icon-home1"
         slot="icon"
         size="1.1rem"
       />首页</van-tabbar-item
@@ -40,14 +40,14 @@
 <script>
 import Vue from "vue";
 import { Tabbar, TabbarItem, Icon } from "vant";
-import "@/assets/icon/iconfont.css";
+import "@/assets/iconfont/iconfont.css";
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Icon);
 export default {
   data() {
     return {
-      path: ["/", "/strategy/index", "/decorate", "/my/index"],
+      path: ["/", "/strategy/index", "/decorate", "/center"],
       headName: ["装馨家", "攻略", "找装修", "个人中心"],
     };
   },
@@ -63,13 +63,6 @@ export default {
       this.$router.push(this.path[index]);
       this.$store.commit("setHeadName", this.headName[index]);
     },
-     showSearch() {
-      if (document.documentElement.scrollTop > 80) {
-        this.$store.commit("setSearch", true);
-      } else {
-        this.$store.commit("setSearch", false);
-      }
-    },
   },
   watch: {
     $route: {
@@ -84,18 +77,13 @@ export default {
           case "/decorate":
             this.$store.commit("setFooterActive", 2);
             break;
-          case "/my/index":
+          case "/center":
             this.$store.commit("setFooterActive", 3);
             break;
-          default :
-            this.$store.commit("setFooterActive", 0);
-            break
-
         }
       },
       deep: true,
     },
   },
- 
 };
 </script>

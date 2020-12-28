@@ -15,6 +15,7 @@ export default {
     FooterNav,
     Hometop,
   },
+  
 };
 </script>
 <style lang="scss"></style>

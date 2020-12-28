@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <allHeader></allHeader>
     <div class="menu">
       <van-dropdown-menu>
         <van-dropdown-item v-model="value1" :options="option1" />
@@ -68,7 +67,6 @@
 <script>
 import Vue from "vue";
 import uri from "@/config/uri";
-import allHeader from "@/components/Navigation/allHeader";
 import { DropdownMenu, DropdownItem, Button } from "vant";
 
 Vue.use(DropdownMenu);
@@ -92,9 +90,6 @@ export default {
       ],
     };
   },
-  components: {
-    allHeader,
-  },
   methods: {
     search(value) {},
     getData(path) {
@@ -111,6 +106,8 @@ export default {
     },
   },
   created() {
+    this.$store.commit("setIsGoBackHome", true);
+    this.$store.commit("setIsGo", true);
     this.getData(
       "?lastpath=decoration/shop/list/fullset&&uuid=178089129000251cf871a2b5d0f76a764020c8c0ff&referer=shop%2Flist%3F&referlid=1780891290815c72ca7c101e404d796b19217aecf7&province_name=%E5%8C%97%E4%BA%AC&city_name=%E5%8C%97%E4%BA%AC&selectArea=131&cbdid=NTJERjRFREUxMjgxNDU5OEU3NUQ1MkVDQTJCMDA2RDk&jpath=DZ1&title=%E6%95%B4%E5%B1%8B%E8%A3%85%E4%BF%AE&path=%2Fdecoration%2Fshop%2Flist%2Ffullset&jzts=1608953835904_0.6747708476375707&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5"
     );

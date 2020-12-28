@@ -1,6 +1,5 @@
 <template>
   <div>
-    <tool-header />
     <div class="banner">
       <div>8秒免费获取装修报价</div>
     </div>
@@ -32,7 +31,6 @@
 <script>
 import Vue from "vue";
 import uri from "@/config/uri";
-import toolHeader from "@/components/Navigation/toolHeader";
 import { ActionSheet, Cell, Toast, Button } from "vant";
 import { Field } from "vant";
 
@@ -44,7 +42,7 @@ Vue.use(Button);
 export default {
   data() {
     return {
-      value: '',
+      value: "",
       show: false,
       actions: [{ name: "北京" }, { name: "西安" }, { name: "上海" }],
       actions1: [
@@ -57,9 +55,6 @@ export default {
       coContent: [],
     };
   },
-  components: {
-    toolHeader,
-  },
   methods: {
     onSelect(item) {
       // 默认情况下点击选项时不会自动收起
@@ -69,6 +64,8 @@ export default {
     },
   },
   created() {
+    this.$store.commit("setIsGoBackHome", true);
+    this.$store.commit("setIsGo", true);
     this.$http
       .get(
         uri.getAirPortInfo +
@@ -82,7 +79,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .banner {
-    margin-top: 50px;
+  margin-top: 50px;
   width: 100%;
   height: 120px;
   background-size: 100% 100%;

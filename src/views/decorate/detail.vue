@@ -1,7 +1,6 @@
 <template>
   <div>
-    <detailHeader />
-    <div class="banner" style="margin-top:40px;">
+    <div class="banner" style="margin-top: 40px">
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
         <van-swipe-item
           v-for="(item, index) in bannerList"
@@ -68,7 +67,9 @@
           }}</span>
         </div>
         <div class="showphoto">
-          <div style="padding-left:5%;margin-right:5%;">{{ item.content }}</div>
+          <div style="padding-left: 5%; margin-right: 5%">
+            {{ item.content }}
+          </div>
           <div style="margin-left: 5%">
             <span v-for="(val, key) in item.media" :key="key">
               <img
@@ -113,7 +114,6 @@
 <script>
 import Vue from "vue";
 import uri from "@/config/uri";
-import detailHeader from "@/components/Navigation/detailHeader";
 import { Swipe, SwipeItem } from "vant";
 
 Vue.use(Swipe);
@@ -129,10 +129,9 @@ export default {
       showCaselist: [],
     };
   },
-  components: {
-    detailHeader,
-  },
   created() {
+    this.$store.commit("setIsGoBackHome", true);
+    this.$store.commit("setIsGo", true);
     this.$http
       .get(
         uri.getAirPortInfo +

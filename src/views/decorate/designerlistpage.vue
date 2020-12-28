@@ -1,6 +1,5 @@
 <template>
   <div>
-    <designerlistpage-header />
     <div class="menu" style="margin-top: 50px">
       <van-dropdown-menu>
         <van-dropdown-item v-model="value1" :options="option1" />
@@ -32,7 +31,7 @@
             <span
               v-for="(val, key) in item.designStyleTag"
               :key="key"
-              style="margin-right: 10px; display: inline-block;font-size:12px;"
+              style="margin-right: 10px; display: inline-block; font-size: 12px"
               >{{ val }}</span
             >
           </div>
@@ -47,7 +46,6 @@
   </div>
 </template>
 <script>
-import designerlistpageHeader from "@/components/Navigation/designerlistpageHeader";
 import Vue from "vue";
 import uri from "@/config/uri";
 import { DropdownMenu, DropdownItem, Skeleton } from "vant";
@@ -80,8 +78,10 @@ export default {
       showDesignerlist: [],
     };
   },
-  components: { designerlistpageHeader },
   created() {
+    this.$store.commit("setIsGoBackHome", true);
+    this.$store.commit("setIsGo", true);
+
     this.$http
       .get(
         uri.getAirPortInfo +
@@ -111,11 +111,11 @@ export default {
       }
     });
   },
-  methods:{
-    todesigner(){
-      this.$router.push('/decoration/designer/detail');
-    }
-  }
+  methods: {
+    todesigner() {
+      this.$router.push("/decoration/designer/detail");
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -126,27 +126,27 @@ export default {
   margin-top: 10px;
 }
 .photo {
-  width:15%;
+  width: 15%;
   vertical-align: top;
   img {
     width: 100%;
     border-radius: 50%;
   }
 }
-.msg{
+.msg {
   width: 75%;
-  .price{
+  .price {
     font-size: 12px;
-    span{
-      background:rgb(199, 240, 137);
+    span {
+      background: rgb(199, 240, 137);
       border-radius: 6px;
     }
   }
-  .style{
+  .style {
     margin-top: 5px;
     margin-bottom: 5px;
-    span{
-      background:rgb(179, 175, 241);
+    span {
+      background: rgb(179, 175, 241);
       border-radius: 6px;
     }
   }
@@ -156,8 +156,8 @@ export default {
   span {
     display: inline-block;
     width: 30%;
-    height:60px;
-   padding-right: 2%;
+    height: 60px;
+    padding-right: 2%;
     img {
       width: 100%;
       height: 100%;

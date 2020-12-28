@@ -56,9 +56,16 @@
         <van-tab title="全部" :title-style="titleStyle"></van-tab>
         <van-tab title="3D漫游" :title-style="titleStyle"></van-tab>
       </van-tabs>
-      <van-loading size="24px" v-show="isLoadingTop" vertical>加载中</van-loading>
+      <van-loading size="24px" v-show="isLoadingTop" vertical
+        >加载中</van-loading
+      >
 
-      <div class="body" v-show="!isLoadingTop" v-for="(item, index) in list" :key="index">
+      <div
+        class="body"
+        v-show="!isLoadingTop"
+        v-for="(item, index) in list"
+        :key="index"
+      >
         <!-- 3D模块 -->
         <div class="cart-3d">
           <div class="cart-img" v-show="item.img">
@@ -84,7 +91,6 @@
 </template>
 
 <script>
-
 import uri from "@/config/uri.js";
 import Vue from "vue";
 import { Tab, Tabs, Loading } from "vant";
@@ -131,14 +137,16 @@ export default {
 
   created() {
     this.$store.commit("setIsFooterShow", false);
-    this.$store.commit("setIsGo", true);
     this.$store.commit("setIsGoBackHome", true);
+    this.$store.commit("setIsGo", true);
     this.$store.commit("setSearch", true);
     //获取视窗窗口高度
     this.screenHeight = document.documentElement.clientHeight;
-    this.$http.get(uri.getAirPortInfo + '?lastpath=decoration/caselist').then((ret) => {
-      this.list = ret.data.showCaselist.list;
-    });
+    this.$http
+      .get(uri.getAirPortInfo + "?lastpath=decoration/caselist")
+      .then((ret) => {
+        this.list = ret.data.showCaselist.list;
+      });
     window.addEventListener("scroll", () => {
       //获取文档总高度
       let pageHeight = document.documentElement.scrollHeight;
@@ -151,11 +159,17 @@ export default {
         } else {
           this.isLoading = true;
           this.isNext = false;
-          this.$http.get(uri.getAirPortInfo +'?lastpath=decoration/caselist' + this.decoration).then((ret) => {
-            this.list = [...this.list, ...ret.data.showCaselist.list];
-            this.isNext = true;
-            this.isLoading = false;
-          });
+          this.$http
+            .get(
+              uri.getAirPortInfo +
+                "?lastpath=decoration/caselist" +
+                this.decoration
+            )
+            .then((ret) => {
+              this.list = [...this.list, ...ret.data.showCaselist.list];
+              this.isNext = true;
+              this.isLoading = false;
+            });
         }
       }
     });
@@ -190,19 +204,20 @@ export default {
     },
     //请求数据
     getList() {
-      this.isLoadingTop = true
-      this.$http.get(uri.getAirPortInfo +'?lastpath=decoration/caselist' + this.decoration).then((ret) => {
-        this.list = ret.data.showCaselist.list;
-        console.log(ret.data);
-        this.isLoadingTop = false
-      });
+      this.isLoadingTop = true;
+      this.$http
+        .get(
+          uri.getAirPortInfo + "?lastpath=decoration/caselist" + this.decoration
+        )
+        .then((ret) => {
+          this.list = ret.data.showCaselist.list;
+          console.log(ret.data);
+          this.isLoadingTop = false;
+        });
     },
   },
   beforeDestroy() {
     this.$store.commit("setIsFooterShow", true);
-    this.$store.commit("setIsGo", false);
-    this.$store.commit("setIsGoBackHome", false);
-    this.$store.commit("setSearch", false);
   },
 };
 </script>
