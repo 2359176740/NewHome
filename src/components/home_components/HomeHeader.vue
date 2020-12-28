@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="top">
-      <HeadTop />
       <div class="main">
         <van-search v-model="value" placeholder="搜索" shape="round" />
         <div class="grid">
@@ -34,7 +33,6 @@
 <script>
 import Vue from "vue";
 import uri from "@/config/uri.js";
-import HeadTop from "@/components/home_components/headers/Hometop";
 import { Search, Swipe, SwipeItem } from "vant";
 
 Vue.use(Search);
@@ -48,9 +46,6 @@ export default {
       banner_list: [],
       icon_list: [],
     };
-  },
-  components: {
-    HeadTop,
   },
   methods: {
     getArr() {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HomeTop />
     <div class="main">
       <van-tabs
         v-model="active"
@@ -85,7 +84,7 @@
 </template>
 
 <script>
-import HomeTop from "@/components/home_components/headers/Hometop";
+
 import uri from "@/config/uri.js";
 import Vue from "vue";
 import { Tab, Tabs, Loading } from "vant";
@@ -129,9 +128,7 @@ export default {
       },
     };
   },
-  components: {
-    HomeTop,
-  },
+
   created() {
     this.$store.commit("setIsFooterShow", false);
     this.$store.commit("setIsGo", true);

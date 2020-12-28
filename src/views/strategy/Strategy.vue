@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Hometop></Hometop>
     <div v-show="isSkeleton">
       <van-skeleton title :row="5" />
       <van-skeleton title :row="5" class="gap" />
@@ -142,7 +141,6 @@ import Menu from "@/components/strategy/Menu.vue";
 import { NavBar, Icon, Loading, Skeleton } from "vant";
 import uri from "@/config/uri.js";
 import "@/assets/font/iconfont.css";
-import Hometop from '@/components/home_components/headers/Hometop'
 
 Vue.use(NavBar);
 Vue.use(Icon);
@@ -168,7 +166,6 @@ export default {
   },
   components: {
     Menu,
-    Hometop
   },
 
   created() {
@@ -176,9 +173,6 @@ export default {
     this.$store.commit('setIsGoBackHome',true)
     //头部内容显示
     this.$store.commit('setHeadName','攻略')
-    //隐藏搜索
-    this.$store.commit('setTopSearch',false)
-
     // 获取屏幕高度
     this.screenHeight =
       window.innerHeight ||
@@ -231,10 +225,6 @@ export default {
           });
       }
     });
-  },
-  beforeDestroy(){
-    //显示搜索
-    this.$store.commit('setTopSearch',true)
   },
   mounted() {},
   methods: {

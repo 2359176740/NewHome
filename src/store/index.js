@@ -11,8 +11,6 @@ export default new Vuex.Store({
     isLoadingShow: true,
     //搜索图标是否显示
     is_search: false,
-    //控制搜索图标在其他页面是否显示
-    is_search_show:true,
     //返回图标是否显示
     is_go: false,
     //回到主页图标是否显示
@@ -59,9 +57,6 @@ export default new Vuex.Store({
     },
     setClickPath(state, val) {
       state.clickPath = val;
-    },
-    setTopSearch(state, val) {
-      state.is_search_show = val;
     },
 
     //装修中的

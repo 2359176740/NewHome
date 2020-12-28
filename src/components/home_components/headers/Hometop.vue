@@ -8,12 +8,10 @@
           @click="go()"
           v-show="$store.state.is_go"
         ></div>
-        <div v-show="this.$store.state.is_search_show">
           <div
             class="search iconfont icon-sousuo"
             v-show="$store.state.is_search"
           ></div>
-        </div>
         <div
           class="goBackHome iconfont icon-jia"
           @click="goBackHome()"
@@ -46,6 +44,15 @@ export default {
     if (this.$route.fullPath == "/home") {
       document.addEventListener("scroll", this.showSearch);
     }
+  },
+  beforeDestroy(){
+    /*
+      组件切换销毁时组件本神身已经绑定的事件比如scroll,还有ajax请求并不会随着组件的注销而被销毁
+      需要在组件beforeDestory中进行销毁
+      每个组件必须在自己的当前生命周期中销毁自己创建的事件
+      在相同组件不同生命周期中不能销毁其他生命周期创建的事件
+    */
+    document.removeEventListener('scroll',this.showSearch)
   },
 };
 </script>
