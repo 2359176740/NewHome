@@ -12,7 +12,7 @@ module.exports = {
             "/v1": {
                 // 把相对地址中的域名 映射到 目标地址中
                 // localhost:3000 => https://api.iynn.cn/film/api/v1/
-                target: "http://127.0.0.1/",
+                target: "http://127.0.0.1/NewHome/php/",
                 // 修改host请求的域名为目标域名
                 // changeOrigin: false,
                 changeOrigin: true,
