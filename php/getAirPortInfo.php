@@ -17,7 +17,7 @@ if(count($_REQUEST) > 0){
 
 // 代理地址（各位只需要修改$url这个变量的值，将其替换成自己需要从别处去取的地址即可）
 // 参数需要另传给当前这个php文件，由php代为传递给目标url
-$url = "https://jia.baidu.com/decoration/home";
+$url = "https://jia.baidu.com/decoration";
 $api = $url . $params;
 
 // 请求接口的数据
