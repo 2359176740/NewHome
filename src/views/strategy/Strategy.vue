@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header></Header>
+    <Hometop></Hometop>
     <div v-show="isSkeleton">
       <van-skeleton title :row="5" />
       <van-skeleton title :row="5" class="gap" />
@@ -138,11 +138,11 @@
 
 <script>
 import Vue from "vue";
-import Header from "@/components/strategy/Header";
 import Menu from "@/components/strategy/Menu.vue";
 import { NavBar, Icon, Loading, Skeleton } from "vant";
 import uri from "@/config/uri.js";
 import "@/assets/font/iconfont.css";
+import Hometop from '@/components/home_components/headers/Hometop'
 
 Vue.use(NavBar);
 Vue.use(Icon);
@@ -167,11 +167,13 @@ export default {
     };
   },
   components: {
-    Header,
     Menu,
+    Hometop
   },
 
   created() {
+    this.$store.commit('setIsGoBackHome',true)
+    this.$store.commit('setHeadName','攻略')
     // 获取屏幕高度
     this.screenHeight =
       window.innerHeight ||
@@ -180,7 +182,7 @@ export default {
     //  异步获取数据，注意子组件生命周期顺序，获取首屏数据
     this.$http
       .get(
-        uri.getGuide +
+        uri.getAirPortInfo +
           "?lastpath=decoration/guide&&jzts=1608943795578_0.1214063103264098&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5"
       )
       .then((ret) => {
@@ -212,7 +214,7 @@ export default {
         //  异步获取数据，注意子组件生命周期顺序
         this.$http
           .get(
-            uri.getGuide +
+            uri.getAirPortInfo +
               `?lastpath=${this.nextPageUrl.path}&&${this.nextPageUrl.params}&&${this.str}`
           )
           .then((ret) => {
@@ -232,7 +234,7 @@ export default {
       let { path, params } = infoObj;
       //  异步获取数据，注意子组件生命周期顺序，获取首屏数据
       this.$http
-        .get(uri.getGuide + `?lastpath=${path}&&${params}`)
+        .get(uri.getAirPortInfo + `?lastpath=${path}&&${params}`)
         .then((ret) => {
           this.showLearnarticle = ret.data.showLearnarticle;
           this.showMixrecList = ret.data.showMixrec.list;

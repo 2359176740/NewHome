@@ -2,7 +2,6 @@
   <div id="app">
     <router-view />
     <FooterNav/>
-    
   </div>
 </template>
 <script>

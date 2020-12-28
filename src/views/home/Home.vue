@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HomeHeader  />
+    <HomeHeader />
     <HomeNav />
     <HomeBody v-show="!this.$store.state.isLoadingShow" />
   </div>
@@ -17,5 +17,12 @@ export default {
     HomeNav,
     HomeBody,
   },
+  created() {
+    this.$store.commit("setIsGoBackHome", false);
+    this.$store.commit("setHeadName", "装馨家");
+  },
+  // beforeDestroy() {
+  //   this.$store.commit("setSearch", false);
+  // },
 };
 </script>

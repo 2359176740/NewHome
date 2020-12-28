@@ -1,5 +1,11 @@
 <template>
-  <van-tabbar v-model="$store.state.footerActive" v-show="$store.state.isFooterShow" active-color="red" placeholder @change="onChange">
+  <van-tabbar
+    v-model="$store.state.footerActive"
+    v-show="$store.state.isFooterShow"
+    active-color="red"
+    placeholder
+    @change="onChange"
+  >
     <van-tabbar-item
       ><van-icon
         class="iconfont icon-home"
@@ -42,7 +48,7 @@ export default {
   data() {
     return {
       path: ["/", "/strategy/index", "/pages/findShop/index", "/my/index"],
-      headName:['装馨家','攻略','找装修','个人中心']
+      headName: ["装馨家", "攻略", "找装修", "个人中心"],
     };
   },
   created() {
@@ -50,12 +56,55 @@ export default {
       this.path.indexOf(this.$route.path) >= 0
         ? this.path.indexOf(this.$route.path)
         : 0;
-    this.$store.commit('setFooterActive',active)
+    this.$store.commit("setFooterActive", active);
   },
   methods: {
     onChange(index) {
       this.$router.push(this.path[index]);
-      this.$store.commit('setHeadName',this.headName[index])
+      this.$store.commit("setHeadName", this.headName[index]);
+    },
+     showSearch() {
+      if (document.documentElement.scrollTop > 80) {
+        this.$store.commit("setSearch", true);
+      } else {
+        this.$store.commit("setSearch", false);
+      }
+    },
+  },
+  // watch: {
+  //   $route: {
+  //     handler(val) {
+  //       switch (val.fullPath) {
+  //         case "/home":
+  //           this.$store.commit("setFooterActive", 0);
+  //           break;
+  //         case "/strategy/index":
+  //           this.$store.commit("setFooterActive", 1);
+  //           break;
+  //         default :
+  //           this.$store.commit("setFooterActive", 0);
+  //           break
+
+  //       }
+  //     },
+  //     deep: true,
+  //   },
+  // },
+   watch: {
+    $route: {
+      handler(val) {
+        switch (val.fullPath) {
+          case "/home":
+            document.addEventListener("scroll", this.showSearch);
+            console.log(val);
+            break;
+          default:
+            document.removeEventListener("scroll", this.showSearch);
+            console.log(val);
+            break;
+        }
+      },
+      deep: true,
     },
   },
 };

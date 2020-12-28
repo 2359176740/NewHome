@@ -31,16 +31,36 @@ export default {
     goBackHome() {
       this.$router.push("/");
     },
-  },
-  created(){
-    window.addEventListener("scroll", () => {
+    showSearch() {
       if (document.documentElement.scrollTop > 80) {
         this.$store.commit("setSearch", true);
       } else {
         this.$store.commit("setSearch", false);
       }
-    });
-  }
+    },
+  },
+  // watch: {
+  //   $route: {
+  //     handler(val) {
+  //       console.log(val);
+  //       switch (val.fullPath) {
+  //         case "/home":
+  //           document.addEventListener("scroll", this.showSearch);
+  //           break;
+  //         default:
+  //           document.removeEventListener("scroll", this.showSearch);
+  //           break;
+  //       }
+  //     },
+  //     deep: true,
+  //   },
+  // },
+
+  created() {
+    if (this.$route.fullPath == "/home") {
+      document.addEventListener("scroll", this.showSearch);
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
