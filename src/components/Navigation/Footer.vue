@@ -47,7 +47,7 @@ Vue.use(Icon);
 export default {
   data() {
     return {
-      path: ["/", "/strategy/index", "/pages/findShop/index", "/my/index"],
+      path: ["/", "/strategy/index", "/decorate", "/my/index"],
       headName: ["装馨家", "攻略", "找装修", "个人中心"],
     };
   },
@@ -71,41 +71,31 @@ export default {
       }
     },
   },
-  // watch: {
-  //   $route: {
-  //     handler(val) {
-  //       switch (val.fullPath) {
-  //         case "/home":
-  //           this.$store.commit("setFooterActive", 0);
-  //           break;
-  //         case "/strategy/index":
-  //           this.$store.commit("setFooterActive", 1);
-  //           break;
-  //         default :
-  //           this.$store.commit("setFooterActive", 0);
-  //           break
-
-  //       }
-  //     },
-  //     deep: true,
-  //   },
-  // },
-   watch: {
+  watch: {
     $route: {
       handler(val) {
         switch (val.fullPath) {
           case "/home":
-            document.addEventListener("scroll", this.showSearch);
-            console.log(val);
+            this.$store.commit("setFooterActive", 0);
             break;
-          default:
-            document.removeEventListener("scroll", this.showSearch);
-            console.log(val);
+          case "/strategy/index":
+            this.$store.commit("setFooterActive", 1);
             break;
+          case "/decorate":
+            this.$store.commit("setFooterActive", 2);
+            break;
+          case "/my/index":
+            this.$store.commit("setFooterActive", 3);
+            break;
+          default :
+            this.$store.commit("setFooterActive", 0);
+            break
+
         }
       },
       deep: true,
     },
   },
+ 
 };
 </script>

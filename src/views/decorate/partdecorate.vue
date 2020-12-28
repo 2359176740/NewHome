@@ -1,30 +1,6 @@
 <template>
   <div class="container">
-    <DecorateHeader></DecorateHeader>
-    <div class="header">
-      <div
-        v-for="(item, index) in showDiamondzone.result"
-        :key="index"
-        class="header-cell"
-        @click="tolist(item.url.path, item.url.params, item.text)"
-      >
-        <div class="img">
-          <img :src="item.imgUrl" alt="" />
-        </div>
-        <div class="header-name">{{ item.text }}</div>
-      </div>
-    </div>
-    <!--  -->
-    <div class="store">
-      <div class="newstore">
-        <div class="newstore-top">新店推荐</div>
-        <div class="newstore-footer">发现优质新店</div>
-      </div>
-      <div class="site">
-        <div class="site-top">优选工地</div>
-        <div class="site-footer">围观装修工地</div>
-      </div>
-    </div>
+    <partHeader></partHeader>
     <div class="menu">
       <van-dropdown-menu>
         <van-dropdown-item v-model="value1" :options="option1" />
@@ -71,16 +47,11 @@
         <div class="detail">
           <div class="name">{{ item.name }}</div>
           <div>
-            <span v-if="item.capacityTag" style="font-size: 12px">{{
-              item.capacityTag[0] + " "
-            }}</span>
-            <span style="font-size: 12px">{{ "  " + item.recentSubmit }}</span>
+            <span v-if="item.capacityTag">{{ item.capacityTag[0] + " " }}</span>
+            <span>{{ "  " + item.recentSubmit }}</span>
           </div>
           <div>
-            <span
-              v-for="(val, key) in item.serviceTag"
-              :key="key"
-              style="font-size: 12px"
+            <span v-for="(val, key) in item.serviceTag" :key="key"
               >{{ val }}
             </span>
           </div>
@@ -97,7 +68,7 @@
 <script>
 import Vue from "vue";
 import uri from "@/config/uri";
-import DecorateHeader from "@/components/Navigation/decorateHeader";
+import partHeader from "@/components/Navigation/partHeader";
 import { DropdownMenu, DropdownItem, Button } from "vant";
 
 Vue.use(DropdownMenu);
@@ -106,12 +77,9 @@ Vue.use(Button);
 export default {
   data() {
     return {
-      showDiamondzone: {},
       showFilter: {},
       option2: {},
       option3: {},
-      showRecommendzone: {},
-      viewlog: {},
       showShoplist: [],
       value1: "a",
       option1: [
@@ -122,33 +90,27 @@ export default {
     };
   },
   components: {
-    DecorateHeader,
+    partHeader,
   },
   methods: {
     search(value) {},
     getData(id) {
       this.$http.get(uri.getAirPortInfo + id).then((ret) => {
         console.log(ret.data);
-        this.showDiamondzone = ret.data.showDiamondzone;
         this.showFilter = ret.data.showFilter;
         this.option2 = this.showFilter.result[1].options[0].options;
         this.option3 = this.showFilter.result[2].options;
-        let list = ret.data.showShoplist.list.splice(5, 1);
         this.showShoplist = ret.data.showShoplist.list;
       });
-    },
-    tolist(path, params, text) {
-      this.$router.push(path);
     },
     todetail(path) {
       this.$router.push(path);
     },
   },
   created() {
-    this.$store.commit("setFooterActive", 2);
-    this.getData(
-      "?lastpath=decoration/shop/list&&jzts=1608861881051_0.041307916006790846&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=pc"
-    );
+    this
+      .getData(`?lastpath=decoration/shop/list/partial&&uuid=178089129000251cf871a2b5d0f76a764020c8c0ff&referer=shop%2Flist%3F&referlid=1780891290815c72ca7c101e404d796b19217aecf7&province_name=%E5%8C%97%E4%BA%AC&city_name=%E5%8C%97%E4%BA%AC&selectArea=131&cbdid=NTJERjRFREUxMjgxNDU5OEU3NUQ1MkVDQTJCMDA2RDk&jpath=DZ2&title=%E5%B1%80%E9%83%A8%E8%A3%85%E4%BF%AE&path=%2Fdecoration%2Fshop%2Flist%2Fpartial&jzts=1608952549786_0.21125550740108845&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5
+`);
   },
   mounted() {
     this.height = document.documentElement.clientHeight;
@@ -159,7 +121,7 @@ export default {
         this.$http
           .get(
             uri.getAirPortInfo +
-              "?lastpath=decoration/shop/list&&uuid=1780891290fd944dc56f342de341206cf520e52919&referer=shop%2Flist%3F&referlid=1780891290f4eea0b22fb12ee678742d1fdff198b7&province_name=%E5%8C%97%E4%BA%AC&city_name=%E5%8C%97%E4%BA%AC&from_service=1&selectArea=131&cbdid=NTJERjRFREUxMjgxNDU5OEU3NUQ1MkVDQTJCMDA2RDk&pn=6&rn=6&pagenum=1&jzts=1608963672799_0.07600490413058991&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5"
+              "?lastpath=decoration/shop/list/partial&&uuid=1780891290fd944dc56f342de341206cf520e52919&referer=shop%2Flist%2Fpartial%3F&referlid=17808912908b15fddf5ef223e7d467692700a22f88&province_name=%E5%8C%97%E4%BA%AC&city_name=%E5%8C%97%E4%BA%AC&from_service=1&selectArea=131&cbdid=NTJERjRFREUxMjgxNDU5OEU3NUQ1MkVDQTJCMDA2RDk&pn=12&rn=6&pagenum=2&jpath=DZ2&jzts=1608964203856_0.4595514030803023&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5"
           )
           .then((ret) => {
             console.log(ret.data);
@@ -173,45 +135,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.header {
-  padding-top: 50px;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: 5px;
-}
-.header-cell {
-  width: 15%;
-  font-size: 13px;
-  text-align: center;
-}
-.img img {
-  width: 80%;
-  padding: 0 10%;
-}
-.store {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.newstore {
-  width: 45%;
-  height: 70px;
-  background-size: cover;
-  background-image: url(https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3971393790,443736123&fm=179&app=35&f=PNG?w=558&h=240&s=C8235F7C4B626B245A54DDC2030060B1);
-  background-position: center center;
-  margin-right: 3%;
-}
-.site {
-  width: 45%;
-  height: 70px;
-  background-size: cover;
-  background-image: url(https://dss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1058684704,770836727&fm=179&app=35&f=PNG?w=558&h=240&s=88035F7C4B236D2442C975C80300F0B2);
-  background-position: center center;
-}
 .show-list {
-  margin-top: 5px;
+  margin-top: 95px;
   img {
     width: 100%;
   }
@@ -238,7 +163,12 @@ export default {
   display: inline-block;
   img {
     width: 100%;
-    border-radius: 10px;
   }
+}
+.menu {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  top: 45px;
 }
 </style>

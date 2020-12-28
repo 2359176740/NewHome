@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import center from "./routes/center";
-import decorate from "./routes/decorate";
+import DecorateRouter from './routes/Decorate'
 import strategy from "./routes/strategy";
 import home from "./routes/home";
 Vue.use(VueRouter);
@@ -12,7 +12,7 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
   { path: "/", redirect: "/home" },
   center,
-  decorate,
+  ...DecorateRouter,
   strategy,
   ...home,
 ];
@@ -24,3 +24,5 @@ const router = new VueRouter({
 });
 
 export default router;
+
+

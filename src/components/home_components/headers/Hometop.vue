@@ -8,10 +8,12 @@
           @click="go()"
           v-show="$store.state.is_go"
         ></div>
-        <div
-          class="search iconfont icon-sousuo"
-          v-show="$store.state.is_search"
-        ></div>
+        <div v-show="this.$store.state.is_search_show">
+          <div
+            class="search iconfont icon-sousuo"
+            v-show="$store.state.is_search"
+          ></div>
+        </div>
         <div
           class="goBackHome iconfont icon-jia"
           @click="goBackHome()"
@@ -39,22 +41,6 @@ export default {
       }
     },
   },
-  // watch: {
-  //   $route: {
-  //     handler(val) {
-  //       console.log(val);
-  //       switch (val.fullPath) {
-  //         case "/home":
-  //           document.addEventListener("scroll", this.showSearch);
-  //           break;
-  //         default:
-  //           document.removeEventListener("scroll", this.showSearch);
-  //           break;
-  //       }
-  //     },
-  //     deep: true,
-  //   },
-  // },
 
   created() {
     if (this.$route.fullPath == "/home") {

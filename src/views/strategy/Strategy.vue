@@ -172,8 +172,13 @@ export default {
   },
 
   created() {
+    //返回首页按钮显示
     this.$store.commit('setIsGoBackHome',true)
+    //头部内容显示
     this.$store.commit('setHeadName','攻略')
+    //隐藏搜索
+    this.$store.commit('setTopSearch',false)
+
     // 获取屏幕高度
     this.screenHeight =
       window.innerHeight ||
@@ -226,6 +231,10 @@ export default {
           });
       }
     });
+  },
+  beforeDestroy(){
+    //显示搜索
+    this.$store.commit('setTopSearch',true)
   },
   mounted() {},
   methods: {
