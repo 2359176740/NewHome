@@ -7,18 +7,25 @@ include "./common.php";
 
 // 获取代理的参数信息
 $params = "";
-if(count($_REQUEST) > 0){
+$lastpath = $_REQUEST["lastpath"];
+// echo $lastpath;
+unset($_REQUEST['lastpath']);
+if(count($_REQUEST) > 1){
     foreach ($_REQUEST as $key => $value) {
-        $params .= $key . "=" . $value . "&";
+        echo $key == $lastpath;
+        if($key <> $lastpath){
+            $params .= $key . "=" . $value . "&";
+        }
     }
     // 去除右边多余的&符号
     $params = "?" . rtrim($params,'&');
 }
-
+// echo $params;
 // 代理地址（各位只需要修改$url这个变量的值，将其替换成自己需要从别处去取的地址即可）
 // 参数需要另传给当前这个php文件，由php代为传递给目标url
-$url = "https://jia.baidu.com/decoration/home";
-$api = $url . $params;
+$url = "https://jia.baidu.com/";
+$api = $url .$lastpath. $params;
+// echo $api;
 
 // 请求接口的数据
 // http_get方法为get请求方法，如果需要发送post请求，请使用http_post请求方法

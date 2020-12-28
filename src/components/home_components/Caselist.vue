@@ -139,7 +139,7 @@ export default {
     this.$store.commit("setSearch", true);
     //获取视窗窗口高度
     this.screenHeight = document.documentElement.clientHeight;
-    this.$http.get(uri.getCaseList).then((ret) => {
+    this.$http.get(uri.getAirPortInfo + '?lastpath=decoration/caselist').then((ret) => {
       this.list = ret.data.showCaselist.list;
     });
     window.addEventListener("scroll", () => {
@@ -154,7 +154,7 @@ export default {
         } else {
           this.isLoading = true;
           this.isNext = false;
-          this.$http.get(uri.getCaseList + this.decoration).then((ret) => {
+          this.$http.get(uri.getAirPortInfo +'?lastpath=decoration/caselist' + this.decoration).then((ret) => {
             this.list = [...this.list, ...ret.data.showCaselist.list];
             this.isNext = true;
             this.isLoading = false;
@@ -186,7 +186,7 @@ export default {
     },
     //合并数据
     mergeDecoration() {
-      this.decoration = `?decorationStyle=${this.decorationStyle}&
+      this.decoration = `&decorationStyle=${this.decorationStyle}&
       decorationAreaSize=${this.decorationAreaSize}&
       decorationLayout=${this.decorationLayout}
       `;
@@ -194,8 +194,9 @@ export default {
     //请求数据
     getList() {
       this.isLoadingTop = true
-      this.$http.get(uri.getCaseList + this.decoration).then((ret) => {
+      this.$http.get(uri.getAirPortInfo +'?lastpath=decoration/caselist' + this.decoration).then((ret) => {
         this.list = ret.data.showCaselist.list;
+        console.log(ret.data);
         this.isLoadingTop = false
       });
     },

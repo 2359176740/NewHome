@@ -45,7 +45,7 @@ export default {
     },
     getArr() {
       this.$store.commit("setLoadingShow", true);
-      this.$http.get(uri.getAirPortInfo).then((ret) => {
+      this.$http.get(uri.getAirPortInfo + '?lastpath=decoration/home').then((ret) => {
         if (ret.data.showMixrec.list.length < 12) {
           this.getArr();
         } else {
