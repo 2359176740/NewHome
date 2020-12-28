@@ -9,7 +9,7 @@
               class="grid_item"
               v-for="(item, index) in icon_list"
               :key="index"
-              @click="changeUrl(item)"
+              @click="changeUrl(item.resourceType)"
             >
               <div class="icon">
                 <img :src="item.imgUrl" alt="图片" />
@@ -50,25 +50,59 @@ export default {
   methods: {
     getArr() {
       this.$store.commit("setLoadingShow", true);
-      this.$http.get(uri.getAirPortInfo + '?lastpath=decoration/home').then((ret) => {
-        if (ret.data.showMixrec.list.length < 12) {
-          this.getArr();
-        } else {
-          this.banner_list = ret.data.showBanner;
-          this.icon_list = ret.data.showDiamondzone.result;
-          let body_arr = [
-            [
-              ret.data.showMixrec.list.slice(0, 6),
-              ret.data.showMixrec.list.slice(6, 12),
-            ],
-          ];
-          this.$store.commit("setHomeBodyArr", body_arr);
-          this.$store.commit("setLoadingShow", false);
-        }
-      });
+      this.$http
+        .get(uri.getAirPortInfo + "?lastpath=decoration/home")
+        .then((ret) => {
+          if (ret.data.showMixrec.list.length < 12) {
+            this.getArr();
+          } else {
+            this.banner_list = ret.data.showBanner;
+            this.icon_list = ret.data.showDiamondzone.result;
+            let body_arr = [
+              [
+                ret.data.showMixrec.list.slice(0, 6),
+                ret.data.showMixrec.list.slice(6, 12),
+              ],
+            ];
+            this.$store.commit("setHomeBodyArr", body_arr);
+            this.$store.commit("setLoadingShow", false);
+          }
+        });
     },
-    changeUrl(item) {
-      this.$router.push('/pages/caselist/index');
+    changeUrl(type) {
+      switch (type) {
+        case 'FindCaseList':
+          this.$router.push("/pages/caselist/index");
+          break;
+
+        case 'FindPicList':
+          this.$router.push("/pages/caselist/index");
+          break;
+
+        case 'shopList':
+          this.$router.push("/decorate");
+          break;
+
+        case 'FindDesigner':
+          this.$router.push("/decoration/designerlistpage");
+          break;
+
+        case 'floorPlanSearchTool':
+          this.$router.push("/pages/floorplan/index");
+          break;
+
+        case 'styleTestTool':
+          this.$router.push("/pages/Style/index");
+          break;
+
+        case 'detailedList':
+          this.$router.push("/pages/caselist/index");
+          break;
+
+        case 'QuotedTool':
+          this.$router.push("/pages/caselist/index");
+          break;
+      }
     },
   },
   created() {
