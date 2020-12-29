@@ -74,7 +74,7 @@ export default {
     this.$store.commit("setHeadName", "个人中心");
     let jwt = this.$store.state.jwt;
     if (jwt) {
-      this.$http.get("/v1/info").then((ret) => {
+      this.$http.get("/api/info").then((ret) => {
         if (ret.code == 0) {
           this.userinfo = ret.userinfo;
         }

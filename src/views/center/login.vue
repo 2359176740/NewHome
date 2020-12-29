@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      this.$http.post("/v1/login", values).then((ret) => {
+      this.$http.post('/api/login', values).then((ret) => {
         if (ret.code == 0) {
           Toast.success(ret.msg);
           this.$store.commit("setJwt", ret.jwt);
