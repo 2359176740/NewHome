@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     //首页中body数据
     home_body_arr: [],
-    //loading层
+    //Home下的loading层
     isLoadingShow: true,
     //搜索图标是否显示
     is_search: false,
@@ -19,6 +19,10 @@ export default new Vuex.Store({
     isFooterShow: true,
     //头部名称
     headName: "装馨家",
+    //banner信息
+    banner_list: [],
+    //头部8个图标
+    icon_list: [],
 
     //解决首页点击装修公司时底部装修未选中问题
     footerActive: 0,
@@ -60,6 +64,12 @@ export default new Vuex.Store({
     },
     setClickPath(state, val) {
       state.clickPath = val;
+    },
+    setBanner(state, val) {
+      state.banner_list = val;
+    },
+    setIcon(state, val) {
+      state.icon_list = val;
     },
 
     //装修中的

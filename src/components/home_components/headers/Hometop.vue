@@ -13,7 +13,7 @@
           v-show="$store.state.is_search"
         ></div>
         <div
-          class="goBackHome iconfont icon-jia"
+          class="goBackHome iconfont icon-home1"
           @click="goBackHome()"
           v-show="$store.state.is_GoBackHome"
         ></div>

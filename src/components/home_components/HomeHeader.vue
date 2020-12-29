@@ -7,7 +7,7 @@
           <div class="grid_in">
             <div
               class="grid_item"
-              v-for="(item, index) in icon_list"
+              v-for="(item, index) in $store.state.icon_list"
               :key="index"
               @click="changeUrl(item.resourceType)"
             >
@@ -20,7 +20,7 @@
         </div>
         <div class="swiper">
           <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item v-for="item in banner_list" :key="item.id"
+            <van-swipe-item v-for="item in $store.state.banner_list" :key="item.id"
               ><img :src="item.banner" alt="图片"
             /></van-swipe-item>
           </van-swipe>
@@ -43,32 +43,9 @@ export default {
   data() {
     return {
       value: "",
-      banner_list: [],
-      icon_list: [],
     };
   },
   methods: {
-    getArr() {
-      this.$store.commit("setLoadingShow", true);
-      this.$http
-        .get(uri.getAirPortInfo + "?lastpath=decoration/home")
-        .then((ret) => {
-          if (ret.data.showMixrec.list.length < 12) {
-            this.getArr();
-          } else {
-            this.banner_list = ret.data.showBanner;
-            this.icon_list = ret.data.showDiamondzone.result;
-            let body_arr = [
-              [
-                ret.data.showMixrec.list.slice(0, 6),
-                ret.data.showMixrec.list.slice(6, 12),
-              ],
-            ];
-            this.$store.commit("setHomeBodyArr", body_arr);
-            this.$store.commit("setLoadingShow", false);
-          }
-        });
-    },
     changeUrl(type) {
       switch (type) {
         case 'FindCaseList':
@@ -76,7 +53,7 @@ export default {
           break;
 
         case 'FindPicList':
-          this.$router.push("/pages/caselist/index");
+          this.$router.push("/strategy/index");
           break;
 
         case 'shopList':
@@ -92,7 +69,7 @@ export default {
           break;
 
         case 'styleTestTool':
-          this.$router.push("/pages/Style/index");
+          this.$router.push("/pages/caselist/index");
           break;
 
         case 'detailedList':
@@ -104,9 +81,6 @@ export default {
           break;
       }
     },
-  },
-  created() {
-    this.getArr();
   },
 };
 </script>

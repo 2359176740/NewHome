@@ -28,10 +28,6 @@ export default {
       isActive: false,
       //点击导航的下标
       clickName: 0,
-      //文档总高度
-      pageHeight: 0,
-      //窗口高度
-      clientHeight: 0,
     };
   },
   methods: {
@@ -43,23 +39,37 @@ export default {
         this.getArr();
       }
     },
+    //首屏以及点击中间导航时获取的第一屏数据
     getArr() {
       this.$store.commit("setLoadingShow", true);
-      this.$http.get(uri.getAirPortInfo + '?lastpath=decoration/home').then((ret) => {
-        if (ret.data.showMixrec.list.length < 12) {
-          this.getArr();
-        } else {
-          let body_arr = [
-            [ret.data.showMixrec.list.slice(0, 6), ret.data.showMixrec.list.slice(6, 12)],
-          ];
-          this.$store.commit("setHomeBodyArr", body_arr);
-          this.$store.commit("setLoadingShow", false);
-        }
-      });
+      this.$http
+        .get(uri.getAirPortInfo + "?lastpath=decoration/home")
+        .then((ret) => {
+          if (ret.data.showMixrec.list.length < 12) {
+            this.getArr();
+          } else {
+            //设定banner
+            this.$store.commit("setBanner", ret.data.showBanner);
+            //设定头部8个图标
+            this.$store.commit("setIcon", ret.data.showDiamondzone.result);
+            let body_arr = [
+              [
+                ret.data.showMixrec.list.slice(0, 6),
+                ret.data.showMixrec.list.slice(6, 12),
+              ],
+            ];
+            this.$store.commit("setHomeBodyArr", body_arr);
+            this.$store.commit("setLoadingShow", false);
+          }
+        });
     },
   },
   created() {
+    //获取首页第一屏数据
+    this.getArr();
+    this.clientHeight = document.documentElement.clientHeight;
     window.addEventListener("scroll", () => {
+      //粘性布局
       if (document.documentElement.scrollTop > 354) {
         this.isActive = true;
       } else {

@@ -20,8 +20,5 @@ export default {
   created() {
     this.$store.commit("setHeadName", "装馨家");
   },
-  // beforeDestroy() {
-  //   this.$store.commit("setSearch", false);
-  // },
 };
 </script>
