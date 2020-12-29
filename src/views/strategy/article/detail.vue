@@ -52,7 +52,7 @@
         >的装修公司
       </div>
       <ul class="companylist">
-        <li v-for="(item, index) in secondList" :key="'company' + item.nid">
+        <li v-for="item in secondList" :key="'company' + item.nid">
           <div class="shop">
             <div class="shop-head">
               <div class="shop-head-img">
@@ -149,94 +149,29 @@
     <div class="infowra">
       <div class="shop-recommend-title">
         {{ showWalkthroughrecommendTitle }}
-        <ul>
-          <li>
+        <ul class="showWalkthroughrecommendList1">
+          <li
+            v-for="item in showWalkthroughrecommendList1"
+            :key="'showWalkthroughre' + item.nid"
+          >
             <div
-              data-v-5bfba088=""
-              class="c-gap-inner-top-large c-gap-inner-bottom walkthrough-list-item"
-            >
-              <div data-v-2c487d78="" data-v-5bfba088="" class="item">
-                <div
-                  data-v-2039bae7=""
-                  data-v-2c487d78=""
-                  class="img-content-horizontal-wrapper c-row"
-                >
+              class="leftlogo"
+              :style="{ backgroundImage: 'url(' + item.coverImage.url + ')' }"
+            ></div>
+            <div class="rightinfo">
+              <div class="shopname">{{ item.title }}</div>
+              <div class="shopdes">{{ item.description }}</div>
+              <div class="readinfo">
+                <div class="lef">
                   <div
-                    data-v-2039bae7=""
-                    class="img-content-horizontal-left c-span4"
-                  >
-                    <div
-                      data-v-2039bae7=""
-                      class="jz-img-wrap c-img-s jz-img-radius"
-                    >
-                      <div
-                        data-v-2039bae7=""
-                        class="image__3lmXg jz-img"
-                        lazy-load=""
-                      >
-                        <div
-                          class="image-inner__2uQH2"
-                          style='background-size: cover; background-image: url("https://midpf-material.cdn.bcebos.com/930312b62d7f65aeb5a44fb9e761f14c.jpeg@w_255,h_255,s_2"); background-position: center center;'
-                        ></div>
-                      </div>
-                      <div data-v-2039bae7="" class="jz-img-stroke"></div>
-                    </div>
-                  </div>
-                  <div
-                    data-v-2039bae7=""
-                    class="img-content-horizontal-right c-span8"
-                  >
-                    <div data-v-2c487d78="">
-                      <div
-                        data-v-2c487d78=""
-                        class="c-font-medium c-title-gray item-title c-line-clamp2"
-                      >
-                        简单装修
-                      </div>
-                      <div data-v-2c487d78="" class="item-info c-line-clamp1">
-                        名词概述简单装修是指在不耗费大量的人力、财力、物力的情况下，对住房进行一个最经济实惠的装修。其主要特点还是在不影响正常的起居的情况下简洁、省钱为主。伴随着现代人生活节奏的加剧，生活、工作压力的加重，使得更多的人没有更多的精力、财力去弄精装修，于是简单装修变成了那些普通工薪阶层的无奈之选。装修步骤1、
-                      </div>
-                      <div data-v-2c487d78="" class="item-right-bot">
-                        <div data-v-2c487d78="" class="c-flexbox">
-                          <div data-v-2c487d78="" class="item-right-bot-flex">
-                            <div
-                              data-v-2c487d78=""
-                              class="item-right-bot-flex-box"
-                            >
-                              <div
-                                data-v-2c487d78=""
-                                class="image__3lmXg item-right-bot-flex-avatar"
-                              >
-                                <div
-                                  class="image-inner__2uQH2"
-                                  style='background-size: 100% 100%; background-image: url("https://midpf-material.cdn.bcebos.com/149d8296e1fb5fc98af1e98345b73adc.jpeg@w_64,h_64,s_2");'
-                                ></div>
-                              </div>
-                              <span
-                                data-v-2c487d78=""
-                                class="item-right-bot-flex-text"
-                              >
-                                都必雅装饰
-                              </span>
-                            </div>
-                          </div>
-                          <div
-                            data-v-2c487d78=""
-                            class="c-color-gray c-line-clamp1 item-right-bot-flex"
-                          >
-                            <span
-                              data-v-44e00ec8=""
-                              data-v-2c487d78=""
-                              class="c-gap-left-small"
-                            >
-                              3313阅读
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    class="shopav"
+                    :style="{
+                      backgroundImage: 'url(' + item.authorInfo.avatar + ')',
+                    }"
+                  ></div>
+                  <span>{{ item.authorInfo.name }}</span>
                 </div>
+                <div>{{ item.scanCount }}</div>
               </div>
             </div>
           </li>
@@ -341,6 +276,62 @@ export default {
 };
 </script>
 <style lang="scss" styscoped>
+.showWalkthroughrecommendList1 {
+  li,
+  .readinfo {
+    display: flex;
+    font-size: 12px;
+  }
+  .rightinfo {
+    flex: 1;
+    padding-left: 10px;
+  }
+  .shopdes {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font: 14px/24px Arial, Helvetica, sans-serif;
+    color: #555;
+    max-width: 200px;
+    margin-bottom: 30px;
+  }
+  .shopav{
+      width: 14px;
+      height: 14px;
+      border: 1px solid #666;
+      border-radius: 50%;
+      background-size: cover;
+      display: inline-block;
+       vertical-align: middle;
+  }
+  span{
+      vertical-align: middle;
+      padding-left: 10px;
+  }
+  .lef{
+      flex: 1;
+  }
+}
+.leftlogo {
+  width: 108px;
+  height: 108px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(transparent, rgba(0, 0, 0, 0.05));
+  }
+}
+
 .headerImage {
   width: 100%;
 }
