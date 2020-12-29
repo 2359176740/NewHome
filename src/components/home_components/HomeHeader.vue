@@ -129,6 +129,7 @@ export default {
       //轮播图样式
       .my-swipe {
         color: #fff;
+        background:#fff !important;
         font-size: 20px;
         height: 87px;
         line-height: 87px;
