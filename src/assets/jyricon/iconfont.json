@@ -1,0 +1,23 @@
+{
+  "id": "2292093",
+  "name": "jiabaidu",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3315119",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "8820141",
+      "name": "图片",
+      "font_class": "tupian",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    }
+  ]
+}

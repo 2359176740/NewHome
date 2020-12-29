@@ -15,7 +15,7 @@ const routes = [
   { path: "/", redirect: "/home" },
   ...center,
   ...DecorateRouter,
-  strategy,
+  ...strategy,
   ...home,
 ];
 

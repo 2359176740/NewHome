@@ -12,65 +12,69 @@
       @changeFirstHead="gettabdata"
       @changeSecondHead="gettabdata"
     >
-      <div class="strategy-article">
-        <div
-          class="c-font-medium c-title-gray c-gap-top-large strategy-article-title"
-        >
-          {{ showLearnarticle.subTitle }}
-        </div>
-        <div
-          class="c-gap-top"
-          v-for="item in showLearnarticle.list"
-          :key="item.nid"
-        >
-          <div class="img-content-horizontal-wrapper c-flexbox">
-            <div
-              class="img-content-horizontal-left jz-flexbox-fixed c-gap-right-middle"
-            >
-              <div class="jz-img-wrap c-img-s jz-img-radius margin5">
-                <div class="image__3lmXg jz-img" lazy-load="">
-                  <div
-                    class="image-inner__2uQH2"
-                    :style="{
-                      backgroundImage: 'url(' + item.coverImage.url + ')',
-                    }"
-                  ></div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="img-content-horizontal-right jz-flexbox-auto img-content-horizontal-hidden"
-            >
-              <div class="strategy-article-right">
-                <div
-                  class="c-color c-line-clamp2 c-font-medium strategy-article-right-title"
-                >
-                  {{ item.title }}
-                </div>
-                <div
-                  class="c-flexbox jz-flex-align-center strategy-article-bot"
-                >
-                  <div class="image__3lmXg strategy-article-bot-left">
+      <div v-show="isblock">
+        <div class="strategy-article" v-if="showLearnarticle.list || null">
+          <div
+            class="c-font-medium c-title-gray c-gap-top-large strategy-article-title"
+          >
+            {{ showLearnarticle.subTitle }}
+          </div>
+          <div
+            class="c-gap-top"
+            v-for="item in showLearnarticle.list"
+            :key="item.nid"
+            @click.stop="goArticleDetail(item.itemUrl)"
+          >
+            <div class="img-content-horizontal-wrapper c-flexbox">
+              <div
+                class="img-content-horizontal-left jz-flexbox-fixed c-gap-right-middle"
+              >
+                <div class="jz-img-wrap c-img-s jz-img-radius margin5">
+                  <div class="image__3lmXg jz-img" lazy-load="">
                     <div
-                      class="avatarImage"
+                      class="image-inner__2uQH2"
                       :style="{
-                        backgroundImage: 'url(' + item.authorInfo.avatar + ')',
+                        backgroundImage: 'url(' + item.coverImage.url + ')',
                       }"
                     ></div>
                   </div>
+                </div>
+              </div>
+              <div
+                class="img-content-horizontal-right jz-flexbox-auto img-content-horizontal-hidden"
+              >
+                <div class="strategy-article-right">
                   <div
-                    class="c-gap-left-small c-gap-right-small strategy-article-bot-con"
+                    class="c-color c-line-clamp2 c-font-medium strategy-article-right-title"
                   >
-                    <div class="c-line-clamp1">
-                      {{ item.authorInfo.name }}
-                    </div>
+                    {{ item.title }}
                   </div>
-                  <div class="strategy-article-bot-right">
-                    <div class="c-line-clamp1">
-                      <span class="">{{ item.datePublished }}</span
-                      ><span class="c-gap-left-small">
-                        {{ item.asweight }}阅读
-                      </span>
+                  <div
+                    class="c-flexbox jz-flex-align-center strategy-article-bot"
+                  >
+                    <div class="image__3lmXg strategy-article-bot-left">
+                      <div
+                        class="avatarImage"
+                        :style="{
+                          backgroundImage:
+                            'url(' + item.authorInfo.avatar + ')',
+                        }"
+                      ></div>
+                    </div>
+                    <div
+                      class="c-gap-left-small c-gap-right-small strategy-article-bot-con"
+                    >
+                      <div class="c-line-clamp1">
+                        {{ item.authorInfo.name }}
+                      </div>
+                    </div>
+                    <div class="strategy-article-bot-right">
+                      <div class="c-line-clamp1">
+                        <span class="">{{ item.datePublished }}</span
+                        ><span class="c-gap-left-small">
+                          {{ item.asweight }}阅读
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -78,56 +82,73 @@
             </div>
           </div>
         </div>
-      </div>
-      <!-- 瀑布流详细信息展示 -->
-      <div class="datawra" ref="datawra">
-        <!-- 两个ul加载的过程需要判断谁的高度小就把下一个数据塞在谁的后面，当快要滑到底部的时候，请求下一次的数据 -->
-        <!-- 分两步实现：第一步：判断谁的高度小就把下一个数据塞在谁的后面 
+        <!-- 瀑布流详细信息展示 -->
+        <div class="datawra" ref="datawra">
+          <!-- 两个ul加载的过程需要判断谁的高度小就把下一个数据塞在谁的后面，当快要滑到底部的时候，请求下一次的数据 -->
+          <!-- 分两步实现：第一步：判断谁的高度小就把下一个数据塞在谁的后面 
             难点：获取高度的时机，获取高度需要方法watch监控一个总数组的变化,
             如果写在updated里面，我们每次push的时候又会引发updated，会多次引发updated-->
-        <!-- 快要滑到底部的时候，请求下一次数据 -->
-        <ul ref="leftlist">
-          <!-- Duplicate keys detected: '/system'. This may cause an update error. 原因key可能存在重复 前面加一个index前缀放置重复-->
-          <li v-for="(item, index) in leftlist" :key="index + item.nid">
-            <div class="coverImageWra" v-if="item.coverImage.url">
-              <img :src="item.coverImage.url" alt="" class="coverImage" />
-              <div class="imgNum" v-if="item.imgNum">{{ item.imgNum }}</div>
-              <div class="videoTime" v-if="item.imgNum">
-                {{ item.time }}
+          <!-- 快要滑到底部的时候，请求下一次数据 -->
+          <ul ref="leftlist">
+            <!-- Duplicate keys detected: '/system'. This may cause an update error. 原因key可能存在重复 前面加一个index前缀放置重复-->
+            <li v-for="(item, index) in leftlist" :key="index + item.nid">
+              <div class="coverImageWra" v-if="item.coverImage.url">
+                <img :src="item.coverImage.url" alt="" class="coverImage" />
+                <div
+                  v-if="item.imgNum > 1"
+                  class="imgNum icon iconfont icon-tupian"
+                >
+                  {{ item.imgNum }}
+                </div>
+                <div
+                  class="videoTime icon iconfont icon-shipin"
+                  v-if="item.time"
+                >
+                  {{ item.time }}
+                </div>
               </div>
-            </div>
-            <div class="showTitle">{{ item.title }}</div>
-            <div class="authorInfo">
-              <img :src="item.authorInfo.img" alt="" class="authorImg" /><span
-                class="authorname"
-                >{{ item.authorInfo.name }}</span
-              ><span v-if="item.authorInfo.designerLabel">{{
-                item.authorInfo.designerLabel
-              }}</span>
-            </div>
-          </li>
-        </ul>
-        <ul ref="rightlist">
-          <li v-for="(item, index) in rightlist" :key="index + item.nid">
-            <div class="coverImageWra" v-if="item.coverImage.url">
-              <img :src="item.coverImage.url" alt="" class="coverImage" />
-              <div class="imgNum" v-if="item.imgNum">{{ item.imgNum }}</div>
-              <div class="videoTime" v-if="item.imgNum">
-                {{ item.time }}
+              <div class="showTitle">{{ item.title }}</div>
+              <div class="authorInfo">
+                <img :src="item.authorInfo.img" alt="" class="authorImg" /><span
+                  class="authorname"
+                  >{{ item.authorInfo.name }}</span
+                ><span v-if="item.authorInfo.designerLabel">{{
+                  item.authorInfo.designerLabel
+                }}</span>
               </div>
-            </div>
-            <div class="showTitle">{{ item.title }}</div>
-            <div class="authorInfo">
-              <img :src="item.authorInfo.img" alt="" class="authorImg" /><span
-                class="authorname"
-                >{{ item.authorInfo.name }}</span
-              ><span v-if="item.authorInfo.designerLabel">{{
-                item.authorInfo.designerLabel
-              }}</span>
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+          <ul ref="rightlist">
+            <li v-for="(item, index) in rightlist" :key="index + item.nid">
+              <div class="coverImageWra" v-if="item.coverImage.url">
+                <img :src="item.coverImage.url" alt="" class="coverImage" />
+                <div
+                  v-if="item.imgNum > 1"
+                  class="imgNum icon iconfont icon-tupian"
+                >
+                  {{ item.imgNum }}
+                </div>
+                <div
+                  class="videoTime icon iconfont icon-shipin"
+                  v-if="item.time"
+                >
+                  {{ item.time }}
+                </div>
+              </div>
+              <div class="showTitle">{{ item.title }}</div>
+              <div class="authorInfo">
+                <img :src="item.authorInfo.img" alt="" class="authorImg" /><span
+                  class="authorname"
+                  >{{ item.authorInfo.name }}</span
+                ><span v-if="item.authorInfo.designerLabel">{{
+                  item.authorInfo.designerLabel
+                }}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
+
       <van-loading size="24px" vertical v-show="isLoading"
         >加载中...</van-loading
       >
@@ -140,7 +161,7 @@ import Vue from "vue";
 import Menu from "@/components/strategy/Menu.vue";
 import { NavBar, Icon, Loading, Skeleton } from "vant";
 import uri from "@/config/uri.js";
-import "@/assets/font/iconfont.css";
+import "@/assets/jyricon/iconfont.css";
 
 Vue.use(NavBar);
 Vue.use(Icon);
@@ -162,6 +183,10 @@ export default {
       isfinish: true,
       str:
         "jzts=1608943795578_0.1214063103264098&selectArea=131&gpsSelectArea=131&version=6&zxjv=46.0&reqfr=h5",
+      cancel: null,
+      isblock: false,
+      leftlistHeight: 0,
+      rightlistHeight: 0,
     };
   },
   components: {
@@ -185,6 +210,7 @@ export default {
       )
       .then((ret) => {
         this.isSkeleton = false;
+        this.isblock = true;
         this.showGuidetab = ret.data.showGuidetab;
         this.showLearnarticle = ret.data.showLearnarticle;
         this.showMixrecList = ret.data.showMixrec.list;
@@ -213,7 +239,6 @@ export default {
                     `?lastpath=${this.nextPageUrl.path}&&${this.nextPageUrl.params}&&${this.str}`
                 )
                 .then((ret) => {
-                  console.log(ret);
                   this.showMixrecList = ret.data.showMixrec.list;
                   this.nextPageUrl = ret.data.showMixrec.nextPageUrl;
                   this.isLoading = false;
@@ -229,15 +254,31 @@ export default {
     // 监听子组件点击事件
     gettabdata(infoObj) {
       let { path, params } = infoObj;
+      if (typeof this.cancel === `function`) {
+        this.cancel();
+        this.cancel = null;
+      }
+      this.isblock = false;
+      this.isLoading = true;
+      // this.showLearnarticle = {};
+      // this.showMixrecList = [];
+      // this.rightlist = [];
+      // this.leftlist = [];
       //  异步获取数据，注意子组件生命周期顺序，获取首屏数据
       this.$http
-        .get(uri.getAirPortInfo + `?lastpath=${path}&&${params}`)
+        .get(uri.getAirPortInfo + `?lastpath=${path}&&${params}`, {
+          cancelToken: new this.$http.CancelToken((c) => {
+            this.cancel = c;
+          }),
+        })
         .then((ret) => {
           this.showLearnarticle = ret.data.showLearnarticle;
           this.showMixrecList = ret.data.showMixrec.list;
           this.nextPageUrl = ret.data.showMixrec.nextPageUrl;
           this.rightlist = [];
           this.leftlist = [];
+          this.isblock = true;
+          this.isLoading = false;
           // 数据请求都是异步的,所以我们获取一个元素渲染后的高度应该在数据请求之后
           // this.$nextTick也必须放到合适的钩子函数之下，因为它之后在那个时机之后如果有DOM更新此时只调用一次
           // 放在这里就是数据请求成功之后的那一次DOM更新之后调用
@@ -246,38 +287,61 @@ export default {
           });
         });
     },
+
+    // 跳转文章详情
+    goArticleDetail(urlInfo) {
+      let { path, params } = urlInfo;
+      this.$router.push(`/strategy/article/detail?lastpath=${path}&${params}`);
+    },
   },
   watch: {
+    // 后端获取数据总数组
     showMixrecList: {
       handler(val) {
-        //必须加页面渲染完之后，否则获取不到
-        // this.$nextTick(() => {
-        //   val.forEach((ele) => {
-        //     let leftHeight = this.$refs.leftlist[0].offsetHeight;
-        //     let rightHeight = this.$refs.rightlist[0].offsetHeight;
-        //     console.log(leftHeight, rightHeight);
-        //     if (leftHeight >= rightHeight) {
-        //       this.rightlist.push(ele);
-        //     } else {
-        //       this.leftlist.push(ele);
-        //     }
-        //   });
-        // });
-        // 存在问题
-        // 根数组是一次全部更新，分数组会把原来已经插入的数据再插入一次，解决方法，跟数据每次没有重复数据,分数据每次保留有原来的数据
-        // 解决方法，不能把分数据置空之后，再重新分配，这样页面相当于重新渲染，会回到最初滚动的地方
-        // this.rightlist = [];
-        // this.leftlist = [];
         val.forEach((ele) => {
-          setTimeout(() => {
-            let leftHeight = this.$refs.leftlist.offsetHeight;
-            let rightHeight = this.$refs.rightlist.offsetHeight;
-            if (leftHeight >= rightHeight) {
-              this.rightlist.push(ele);
-            } else {
-              this.leftlist.push(ele);
-            }
-          }, 0);
+          // 这样子判断高度的时候容易因为渲染出现不及时，取不到高度,字段里面有宽高值，我们利用宽高值来计算比渲染效率高
+          // setTimeout(() => {
+          //   // 分别插入左右比较之后较低的数组中
+          //   let leftHeight = this.$refs.leftlist.offsetHeight;
+          //   let rightHeight = this.$refs.rightlist.offsetHeight;
+          //   console.log(leftHeight, rightHeight);
+          //   if (leftHeight >= rightHeight) {
+          //     this.rightlist.push(ele);
+          //   } else {
+          //     this.leftlist.push(ele);
+          //   }
+          // });
+          // 比较两个数组的图片高度,比渲染快,直接从接口里面取，js的计算效率比渲染效率高很多
+          if (this.leftlistHeight >= this.rightlistHeight) {
+            this.rightlist.push(ele);
+            this.rightlistHeight += ele.coverImage.width
+              ? (166 / ele.coverImage.width) * ele.coverImage.height
+              : 0;
+          } else {
+            this.leftlist.push(ele);
+            this.leftlistHeight += ele.coverImage.width
+              ? (166 / ele.coverImage.width) * ele.coverImage.height
+              : 0;
+          }
+
+          //必须加页面渲染完之后，否则获取不到
+          // this.$nextTick(() => {
+          //   val.forEach((ele) => {
+          //     let leftHeight = this.$refs.leftlist[0].offsetHeight;
+          //     let rightHeight = this.$refs.rightlist[0].offsetHeight;
+          //     console.log(leftHeight, rightHeight);
+          //     if (leftHeight >= rightHeight) {
+          //       this.rightlist.push(ele);
+          //     } else {
+          //       this.leftlist.push(ele);
+          //     }
+          //   });
+          // });
+          // 存在问题
+          // 根数组是一次全部更新，分数组会把原来已经插入的数据再插入一次，解决方法，跟数据每次没有重复数据,分数据每次保留有原来的数据
+          // 解决方法，不能把分数据置空之后，再重新分配，这样页面相当于重新渲染，会回到最初滚动的地方
+          // this.rightlist = [];
+          // this.leftlist = [];
           /*
                Vue 异步执行 DOM 更新。只要观察到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据改变。
                Vue 在修改数据后，视图不会立刻更新，而是等同一事件循环中的所有数据变化完成之后，再统一进行视图更新。
@@ -341,12 +405,16 @@ export default {
     .imgNum,
     .videoTime {
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 10px;
+      right: 5px;
       color: red;
-    }
-    .videoTime {
-      color: red;
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
+      padding: 0 10px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      color: #fff;
     }
     .authorname {
       vertical-align: middle;
