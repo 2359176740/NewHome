@@ -116,34 +116,9 @@ export default {
       .then((ret) => {
         this.list = ret.data.showCaselist.list;
         this.navList = ret.data.showFilter.result;
-        this.loading = false
+        this.loading = false;
       });
-    window.addEventListener("scroll", () => {
-      //获取文档总高度
-      let pageHeight = document.documentElement.scrollHeight;
-      if (
-        document.documentElement.scrollTop + this.screenHeight ===
-        pageHeight
-      ) {
-        if (!this.isNext) {
-          return;
-        } else {
-          this.isLoading = true;
-          this.isNext = false;
-          this.$http
-            .get(
-              uri.getAirPortInfo +
-                "?lastpath=decoration/home/case/list" +
-                this.decoration
-            )
-            .then((ret) => {
-              this.list = [...this.list, ...ret.data.showCaselist.list];
-              this.isNext = true;
-              this.isLoading = false;
-            });
-        }
-      }
-    });
+    window.addEventListener("scroll", this.addList);
   },
   methods: {
     onClick(name, title) {
@@ -188,8 +163,35 @@ export default {
           this.isLoadingTop = false;
         });
     },
+    addList() {
+      //获取文档总高度
+      let pageHeight = document.documentElement.scrollHeight;
+      if (
+        document.documentElement.scrollTop + this.screenHeight ===
+        pageHeight
+      ) {
+        if (!this.isNext) {
+          return;
+        } else {
+          this.isLoading = true;
+          this.isNext = false;
+          this.$http
+            .get(
+              uri.getAirPortInfo +
+                "?lastpath=decoration/home/case/list" +
+                this.decoration
+            )
+            .then((ret) => {
+              this.list = [...this.list, ...ret.data.showCaselist.list];
+              this.isNext = true;
+              this.isLoading = false;
+            });
+        }
+      }
+    },
   },
   beforeDestroy() {
+    window.removeEventListener("scroll", this.addList);
     this.$store.commit("setIsFooterShow", true);
   },
 };
