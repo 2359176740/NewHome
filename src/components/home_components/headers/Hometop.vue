@@ -137,7 +137,7 @@ export default {
     font-size: 16px;
     line-height: 39px;
     background: #fff;
-    z-index: 9999;
+    z-index: 1000;
   }
 }
 </style>

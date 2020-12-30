@@ -34,7 +34,8 @@
           :key="'aer' + index"
           class="article-content-text"
         >
-          {{ item.content }}
+          <template v-if="item.type === 'text'"> {{ item.content }}</template>
+          <img :src="item.content" alt="" v-if="item.type === 'image'" />
         </div>
       </div>
     </div>
@@ -149,10 +150,63 @@
     <div class="infowra">
       <div class="shop-recommend-title">
         {{ showWalkthroughrecommendTitle }}
+        <!-- 第一种类型 -->
         <ul class="showWalkthroughrecommendList1">
           <li
             v-for="item in showWalkthroughrecommendList1"
             :key="'showWalkthroughre' + item.nid"
+          >
+            <div
+              class="leftlogo"
+              :style="{ backgroundImage: 'url(' + item.coverImage.url + ')' }"
+            ></div>
+            <div class="rightinfo">
+              <div class="shopname">{{ item.title }}</div>
+              <div class="shopdes">{{ item.description }}</div>
+              <div class="readinfo">
+                <div class="lef">
+                  <div
+                    class="shopav"
+                    :style="{
+                      backgroundImage: 'url(' + item.authorInfo.avatar + ')',
+                    }"
+                  ></div>
+                  <span>{{ item.authorInfo.name }}</span>
+                </div>
+                <div>{{ item.scanCount }}</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <!-- 第二种类型 -->
+        <ul class="showWalkthroughrecommendList1 showWalkthroughrecommendList2">
+          <li
+            v-for="item in showWalkthroughrecommendList2"
+            :key="'showWalkthroughre2' + item.nid"
+          >
+            <div class="rightinfo">
+              <div class="shopname">{{ item.title }}</div>
+              <div class="shopdes">{{ item.description }}</div>
+              <div class="readinfo">
+                <div class="lef">
+                  <div
+                    class="shopav"
+                    :style="{
+                      backgroundImage: 'url(' + item.authorInfo.avatar + ')',
+                    }"
+                  ></div>
+                  <span>{{ item.authorInfo.name }}</span>
+                </div>
+                <div>{{ item.scanCount }}</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <!-- 第三种类型 -->
+        <ul class="showWalkthroughrecommendList1">
+          <li
+            v-for="item in showWalkthroughrecommendList3"
+            :key="'showWalkthroughre3' + item.nid"
           >
             <div
               class="leftlogo"
@@ -277,10 +331,23 @@ export default {
 </script>
 <style lang="scss" styscoped>
 .showWalkthroughrecommendList1 {
+  li {
+    margin-bottom: 16px;
+  }
+  .shopname {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 200px;
+    text-overflow: ellipsis;
+  }
   li,
   .readinfo {
     display: flex;
     font-size: 12px;
+    color: #888;
   }
   .rightinfo {
     flex: 1;
@@ -291,26 +358,32 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font: 14px/24px Arial, Helvetica, sans-serif;
+    font: 13px/24px Arial, Helvetica, sans-serif;
     color: #555;
     max-width: 200px;
     margin-bottom: 30px;
   }
-  .shopav{
-      width: 14px;
-      height: 14px;
-      border: 1px solid #666;
-      border-radius: 50%;
-      background-size: cover;
-      display: inline-block;
-       vertical-align: middle;
+  .shopav {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #666;
+    border-radius: 50%;
+    background-size: cover;
+    display: inline-block;
+    vertical-align: middle;
   }
-  span{
-      vertical-align: middle;
-      padding-left: 10px;
+  span {
+    vertical-align: middle;
+    padding-left: 10px;
   }
-  .lef{
-      flex: 1;
+  .lef {
+    flex: 1;
+  }
+}
+.showWalkthroughrecommendList2 {
+  .shopdes {
+    max-width: 320px;
+    margin-bottom: 10px;
   }
 }
 .leftlogo {
@@ -385,6 +458,11 @@ export default {
   .article-author-info {
     font-weight: 700;
     color: #000;
+  }
+}
+.article-content {
+  img {
+    width: 100%;
   }
 }
 .article-content-text {

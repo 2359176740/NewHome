@@ -91,7 +91,11 @@
           <!-- 快要滑到底部的时候，请求下一次数据 -->
           <ul ref="leftlist">
             <!-- Duplicate keys detected: '/system'. This may cause an update error. 原因key可能存在重复 前面加一个index前缀放置重复-->
-            <li v-for="(item, index) in leftlist" :key="index + item.nid">
+            <li
+              v-for="(item, index) in leftlist"
+              :key="index + item.nid"
+              @click="showimg(item.imageList)"
+            >
               <div class="coverImageWra" v-if="item.coverImage.url">
                 <img :src="item.coverImage.url" alt="" class="coverImage" />
                 <div
@@ -119,7 +123,11 @@
             </li>
           </ul>
           <ul ref="rightlist">
-            <li v-for="(item, index) in rightlist" :key="index + item.nid">
+            <li
+              v-for="(item, index) in rightlist"
+              :key="index + item.nid"
+              @click="showimg(item.imageList)"
+            >
               <div class="coverImageWra" v-if="item.coverImage.url">
                 <img :src="item.coverImage.url" alt="" class="coverImage" />
                 <div
@@ -159,7 +167,7 @@
 <script>
 import Vue from "vue";
 import Menu from "@/components/strategy/Menu.vue";
-import { NavBar, Icon, Loading, Skeleton } from "vant";
+import { NavBar, Icon, Loading, Skeleton, ImagePreview } from "vant";
 import uri from "@/config/uri.js";
 import "@/assets/jyricon/iconfont.css";
 
@@ -167,6 +175,7 @@ Vue.use(NavBar);
 Vue.use(Icon);
 Vue.use(Loading);
 Vue.use(Skeleton);
+Vue.use(ImagePreview);
 export default {
   data() {
     return {
@@ -287,7 +296,23 @@ export default {
           });
         });
     },
+    //  展示图片详情
+    showimg(imageList) {
+      console.log(123);
+      let showlist = [];
+      imageList.forEach((ele) => {
+        showlist.push(ele.contentUrl);
+      });
+      if (showlist.length == 1) {
+        showlist = showlist.concat(showlist);
+      }
 
+      ImagePreview({
+        images: showlist,
+        startPosition: 0,
+        closeable: true,
+      });
+    },
     // 跳转文章详情
     goArticleDetail(urlInfo) {
       let { path, params } = urlInfo;
