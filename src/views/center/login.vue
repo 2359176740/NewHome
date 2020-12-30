@@ -2,7 +2,7 @@
   <div>
     <div class="qwer">
       <img
-        src="https://wx4.sinaimg.cn/mw690/9d9cfdb9ly1glnkzr8fp3j21gi2lbb29.jpg"
+        src="../../assets/login.jpg"
         alt=""
       />
     </div>
@@ -32,7 +32,7 @@
             >提交</van-button
           >
         </div>
-      </van-form>
+      </van-form>m 
     </div>
   </div>
 </template>
