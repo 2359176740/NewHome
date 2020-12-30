@@ -1,5 +1,6 @@
 <template>
   <div>
+    <van-skeleton title :row="6" :loading="loading"> </van-skeleton>
     <div class="main">
       <div
         v-for="(item, index) in navList"
@@ -57,19 +58,17 @@
 <script>
 import uri from "@/config/uri.js";
 import Vue from "vue";
-import { Tab, Tabs, Loading } from "vant";
+import { Tab, Tabs, Loading, Skeleton } from "vant";
 
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Loading);
+Vue.use(Skeleton);
 
 export default {
   data() {
     return {
       active: { active1: 0, active2: 0, active3: 0, active4: 0 },
-      active1: 0,
-      active2: 0,
-      active3: 0,
       //列表数据
       list: [],
       //头部导航数据
@@ -89,6 +88,8 @@ export default {
       query: "",
       //合并参数
       decoration: "",
+      //骨架屏
+      loading: true,
 
       titleStyle: {
         background: "#f4f4f4",
@@ -115,6 +116,7 @@ export default {
       .then((ret) => {
         this.list = ret.data.showCaselist.list;
         this.navList = ret.data.showFilter.result;
+        this.loading = false
       });
     window.addEventListener("scroll", () => {
       //获取文档总高度
