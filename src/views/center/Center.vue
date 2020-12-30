@@ -9,16 +9,16 @@
           />
         </li>
         <li class="rt">
-          <div v-if="!userinfo.mobile">
+          <div v-show="!userinfo.mobile">
             <span>未登录</span>
             <span>登录后结交好朋友无限...</span>
           </div>
-          <div v-if="userinfo.mobile">
+          <div v-show="userinfo.mobile">
             {{ userinfo.mobile }}
           </div>
         </li>
         <li>
-          <button v-if="!userinfo.mobile" @click="login">立即登录</button>
+          <button v-show="!userinfo.mobile" @click="login">立即登录</button>
         </li>
       </ul>
     </div>
@@ -70,11 +70,13 @@ export default {
   },
   created() {
     this.$store.commit("setIsGoBackHome", true);
+    this.$store.commit("setIsGo", true);
     //头部内容显示
     this.$store.commit("setHeadName", "个人中心");
     let jwt = this.$store.state.jwt;
     if (jwt) {
       this.$http.get("/api/info").then((ret) => {
+        console.log(ret);
         if (ret.code == 0) {
           this.userinfo = ret.userinfo;
         }
