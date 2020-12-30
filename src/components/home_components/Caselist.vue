@@ -1,65 +1,29 @@
 <template>
   <div>
     <div class="main">
-      <van-tabs
-        v-model="active"
-        title-inactive-color="#555"
-        title-active-color="red"
-        line-height="0"
-        @click="onClick1"
+      <div
+        v-for="(item, index) in navList"
+        :key="index + 123"
+        @click="onClickAll(item, index)"
       >
-        <van-tab title="全部" :title-style="titleStyle"></van-tab>
-        <van-tab title="简约" :title-style="titleStyle"></van-tab>
-        <van-tab title="现代" :title-style="titleStyle"></van-tab>
-        <van-tab title="中式" :title-style="titleStyle"></van-tab>
-        <van-tab title="欧式" :title-style="titleStyle"></van-tab>
-        <van-tab title="美式" :title-style="titleStyle"></van-tab>
-        <van-tab title="田园" :title-style="titleStyle"></van-tab>
-      </van-tabs>
-      <van-tabs
-        v-model="active1"
-        title-inactive-color="#555"
-        title-active-color="red"
-        line-height="0"
-        @click="onClick2"
-      >
-        <van-tab title="全部" :title-style="titleStyle"></van-tab>
-        <van-tab title="小于5平米" :title-style="titleStyle"></van-tab>
-        <van-tab title="5-10平米" :title-style="titleStyle"></van-tab>
-        <van-tab title="10-30平米" :title-style="titleStyle"></van-tab>
-        <van-tab title="30-60平米" :title-style="titleStyle"></van-tab>
-        <van-tab title="60-90平米" :title-style="titleStyle"></van-tab>
-        <van-tab title="150平米以上" :title-style="titleStyle"></van-tab>
-      </van-tabs>
-      <van-tabs
-        v-model="active2"
-        title-inactive-color="#555"
-        title-active-color="red"
-        line-height="0"
-        @click="onClick3"
-      >
-        <van-tab title="全部" :title-style="titleStyle"></van-tab>
-        <van-tab title="一居室" :title-style="titleStyle"></van-tab>
-        <van-tab title="二居室" :title-style="titleStyle"></van-tab>
-        <van-tab title="三居室" :title-style="titleStyle"></van-tab>
-        <van-tab title="四居室" :title-style="titleStyle"></van-tab>
-        <van-tab title="别墅" :title-style="titleStyle"></van-tab>
-        <van-tab title="小户型" :title-style="titleStyle"></van-tab>
-      </van-tabs>
-      <van-tabs
-        v-model="active3"
-        title-inactive-color="#555"
-        title-active-color="red"
-        line-height="0"
-        @click="onClick4"
-      >
-        <van-tab title="全部" :title-style="titleStyle"></van-tab>
-        <van-tab title="3D漫游" :title-style="titleStyle"></van-tab>
-      </van-tabs>
+        <van-tabs
+          v-model="active[index]"
+          title-inactive-color="#555"
+          title-active-color="red"
+          line-height="0"
+          @click="onClick"
+        >
+          <van-tab
+            :title="value.text"
+            :title-style="titleStyle"
+            v-for="value in item.options"
+            :key="value.value"
+          ></van-tab>
+        </van-tabs>
+      </div>
       <van-loading size="24px" v-show="isLoadingTop" vertical
         >加载中</van-loading
       >
-
       <div
         class="body"
         v-show="!isLoadingTop"
@@ -102,12 +66,14 @@ Vue.use(Loading);
 export default {
   data() {
     return {
-      active: 0,
+      active: { active1: 0, active2: 0, active3: 0, active4: 0 },
       active1: 0,
       active2: 0,
       active3: 0,
       //列表数据
       list: [],
+      //头部导航数据
+      navList: [],
       //窗口高度
       screenHeight: 0,
       //防抖
@@ -119,6 +85,8 @@ export default {
       decorationStyle: "",
       decorationAreaSize: "",
       decorationLayout: "",
+      caseType: "",
+      query: "",
       //合并参数
       decoration: "",
 
@@ -143,9 +111,10 @@ export default {
     //获取视窗窗口高度
     this.screenHeight = document.documentElement.clientHeight;
     this.$http
-      .get(uri.getAirPortInfo + "?lastpath=decoration/caselist")
+      .get(uri.getAirPortInfo + "?lastpath=decoration/home/case/list")
       .then((ret) => {
         this.list = ret.data.showCaselist.list;
+        this.navList = ret.data.showFilter.result;
       });
     window.addEventListener("scroll", () => {
       //获取文档总高度
@@ -162,7 +131,7 @@ export default {
           this.$http
             .get(
               uri.getAirPortInfo +
-                "?lastpath=decoration/caselist" +
+                "?lastpath=decoration/home/case/list" +
                 this.decoration
             )
             .then((ret) => {
@@ -175,39 +144,42 @@ export default {
     });
   },
   methods: {
-    //点击时获取数据
-    onClick1(name, title) {
-      this.decorationStyle = title;
-      this.mergeDecoration();
-      this.getList();
+    onClick(name, title) {
+      if (title === "全部") {
+        this.query = "";
+      } else {
+        this.query = title;
+      }
     },
-    onClick2(name, title) {
-      this.decorationAreaSize = title;
-      this.mergeDecoration();
-      this.getList();
-    },
-    onClick3(name, title) {
-      this.decorationLayout = title;
-      this.mergeDecoration();
-      this.getList();
-    },
-    onClick4(name, title) {
-      this.mergeDecoration();
-      this.getList();
-    },
-    //合并数据
-    mergeDecoration() {
+    onClickAll(item, index) {
+      switch (item.key) {
+        case "decorationStyle":
+          this.decorationStyle = this.query;
+          break;
+        case "decorationAreaSize":
+          this.decorationAreaSize = this.query;
+          break;
+        case "decorationLayout":
+          this.decorationLayout = this.query;
+          break;
+        case "caseType":
+          this.caseType = this.query;
+          break;
+      }
       this.decoration = `&decorationStyle=${this.decorationStyle}&
       decorationAreaSize=${this.decorationAreaSize}&
-      decorationLayout=${this.decorationLayout}
+      decorationLayout=${this.decorationLayout}&caseType=${this.caseType}
       `;
+      this.getList();
     },
     //请求数据
     getList() {
       this.isLoadingTop = true;
       this.$http
         .get(
-          uri.getAirPortInfo + "?lastpath=decoration/caselist" + this.decoration
+          uri.getAirPortInfo +
+            "?lastpath=decoration/home/case/list" +
+            this.decoration
         )
         .then((ret) => {
           this.list = ret.data.showCaselist.list;

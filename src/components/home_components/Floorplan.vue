@@ -67,7 +67,6 @@ export default {
       .get(uri.getAirPortInfo + "?lastpath=decoration/floorplan/home")
       .then((ret) => {
         this.floorPlans = ret.data.showFloorplan.topFloorPlans;
-        console.log(this.floorPlans);
       });
   },
   beforeDestroy() {

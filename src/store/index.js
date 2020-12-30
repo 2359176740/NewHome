@@ -23,10 +23,8 @@ export default new Vuex.Store({
     banner_list: [],
     //头部8个图标
     icon_list: [],
-
     //解决首页点击装修公司时底部装修未选中问题
     footerActive: 0,
-
     //跳转时地址传参
     clickPath: "",
 
